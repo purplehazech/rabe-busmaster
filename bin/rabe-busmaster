@@ -17,14 +17,13 @@
  * @link       http://osc.purplehaze.ch
  */
 
+define('POSCHP_BASEDIR', '/usr/share/rabe-busmaster/');
+
 /**
  * hack the include path
- *
- * @todo play nice (configurable) b4 release
  */
-ini_set('include_path', 'src/:lib/'.ini_get('include_path'));
+ini_set('include_path', POSCHP_BASEDIR.'src/:'.POSCHP_BASEDIR.'lib/:'.ini_get('include_path'));
 
-define('POSCHP_BASEDIR', '/usr/share/rabe-busmaster/');
 
 /**
  * check for pecl-gearman and GearmanManager, load them
