@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project name="rabe-busmaster" default="test">
+<!-- 
+    Main Buildfile used by jenkins  to interact with the system.
+-->
+
+    <!--
+    -->
+    <target name="test">
+    </target>
+
+    <!--
+    -->
+    <target name="docs">
+    </target>
+
+    <!--
+    -->
+    <target name="deploy-local">
+    </target>
+
+    <!-- 
+	 Deploy to webhost dir
+
+	 This is used for building further packages that get deployed
+	 everywhere else
+    -->
+    <target name="deploy-web">
+        <exec executable="cat" outputproperty="version">
+            <arg value="VERSION"/>
+        </exec>
+        <exec executable="cp" failonerror="true">
+	    <arg value="build/rabe-busmaster-${version}.tar.bz2"/>
+	    <arg value="/var/www/distfile-repo.jenkins-01.hq.rabe.ch/htdocs/"/>
+	</exec>
+    </target>
+
+    <target name="pkg">
+        <exec executable="cat" outputproperty="version">
+            <arg value="VERSION"/>
+        </exec>
+        <tar destfile="build/rabe-busmaster-${version}.tar.bz2" 
+             basedir="." compression="bzip2"
+             excludes="build/**"/>
+    </target>
+
+    <target name="bump-version">
+        <exec executable="awk" failonerror="true" output="VERSION">
+            <arg value="-F." />
+            <arg value='1{$NF+=1; OFS="."; print $0}'/>
+            <arg value="VERSION"/>
+	</exec>
+        <exec executable="git" failonerror="true">
+            <arg value="commit"/>
+            <arg value="-m"/>
+            <arg value="version bump"/>
+	    <arg value="VERSION"/>
+        </exec>
+    </target>
+
+
+</project>
