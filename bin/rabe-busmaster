@@ -24,7 +24,7 @@
  */
 ini_set('include_path', 'src/:lib/'.ini_get('include_path'));
 
-define('POSCHP_BASEDIR', '/home/hairmare/git.repos/PoscHP');
+define('POSCHP_BASEDIR', '/usr/share/rabe-busmaster/');
 
 /**
  * check for pecl-gearman and GearmanManager, load them
@@ -53,11 +53,14 @@ $command = array_pop($args);
  *
  * @return void
  */
-function Poschp_Running_callback()
+function Busmaster_Running_callback()
 {
     $c = new GearmanClient;
     $c->addServer();
-    $c->doHighBackground("poschpSocketStart", '127.0.0.1:10000');
+
+    # start osc listener
+    # @todo make listeners configurable and add heaps of them
+    $c->doHighBackground("poschpSocketStart", '0.0.0.0:10000');
 
     echo "OK\n";
 }
@@ -69,7 +72,7 @@ switch ($command) {
 
 case "start":
 
-    echo "Starting PoscHP... ";
+    echo "Starting rabe-busmaster... ";
     $m = new Gearman_Manager(
         array(
             // we tell the manager where our workers are (comma separated)
@@ -88,7 +91,7 @@ case "start":
             // workers config
             'c' => POSCHP_BASEDIR.'/gearman.ini',
             // startup_callback
-            'n' => 'Poschp_Running_callback',
+            'n' => 'Busmaster_Running_callback',
             // debug
             //'v' => 'vvv', // GearmanManager::LOG_LEVEL_DEBUG
             'v' => 'vvvv',   // GearmanManager::LOG_LEVEL_CRAZY
@@ -98,7 +101,7 @@ case "start":
 
 case "stop":
 
-    echo "Killing PoscHP\n";
+    echo "Killing rabe-bustmaster\n";
     posix_kill(file_get_contents(POSCHP_BASEDIR.'/poschp.pid'), 15);
     break;
 
