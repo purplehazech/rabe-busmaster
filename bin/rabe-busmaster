@@ -88,7 +88,7 @@ case "start":
             // runas user
             'u' => $_SERVER['USER'],
             // workers config
-            'c' => POSCHP_BASEDIR.'/gearman.ini',
+            'c' => POSCHP_BASEDIR.'/etc/gearman.ini',
             // startup_callback
             'n' => 'Busmaster_Running_callback',
             // debug
