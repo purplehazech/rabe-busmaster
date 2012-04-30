@@ -1,3 +1,8 @@
 [submodule "lib/GearmanManager"]
 	path = lib/GearmanManager
 	url = git://github.com/hairmare/GearmanManager.git
+
+[submodule "lib/zabbix-sender-php"]
+	path = lib/zabbix-sernder-php
+	url = git://github.com/hairmare/zabbix-sender-php.git
+
