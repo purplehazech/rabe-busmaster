@@ -13,7 +13,12 @@
  * @link       http://osc.purplehaze.ch
  */
 
-require_once 'lib/OSC.php';
+/**
+ * common worker bootstrap
+ */
+require_once dirname(__FILE__).'/../../Bootstrap.php';
+
+require_once 'OSC.php';
 
 /**
  * builtin Osc Ping ftw

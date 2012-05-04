@@ -16,7 +16,7 @@
 /**
  * common worker bootstrap
  */
-require_once '../../Bootstrap.php';
+require_once dirname(__FILE__).'/../../Bootstrap.php';
 
 /**
  * Gearman Manager interface from PEAR extension 

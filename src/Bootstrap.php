@@ -15,10 +15,11 @@
  * @link       http://osc.purplehaze.ch
  */
 
-$conf = parse_ini_file('/etc/bustmaster/busmaster.ini', true);
+$conf = parse_ini_file('/etc/busmaster/busmaster.ini', true);
 
 set_include_path(
-	dirname(__FILE__).'/:'.dirname(__FILE__).'/../lib/',
+	dirname(__FILE__).'/:'.
+	dirname(__FILE__).'/../lib/'.
 	get_include_path()
 );
 
