@@ -13,7 +13,6 @@
  * @link       http://osc.purplehaze.ch
  */
 
-ini_set('include_path', 'src/:'.ini_get('include_path'));
 require_once 'Osc/Parse.php';
 
 /**
@@ -26,11 +25,12 @@ require_once 'Osc/Parse.php';
  */
 function poschpSocketStart($job, &$log)
 {
-
     //$workload = $job->workload();
 
-    $ip = '192.168.1.104';
-    $port = 10000;
+    $conf = parse_ini_file('/etc/busmaster/busmaster.ini', true);
+
+    $ip = $conf['osc']['listen_host'];
+    $port = $conf['osc']['listen_port'];
 
     $log[] = "Creating Socket and starting Listener";
 
