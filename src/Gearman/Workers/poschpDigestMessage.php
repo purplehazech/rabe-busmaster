@@ -14,6 +14,11 @@
  */
 
 /**
+ * common worker bootstrap
+ */
+require_once '../../Bootstrap.php';
+
+/**
  * Gearman Manager interface from PEAR extension 
  * 
  * this has support for getting a list of all the workers

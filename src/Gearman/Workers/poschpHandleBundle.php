@@ -14,6 +14,11 @@
  */
 
 /**
+ * common worker bootstrap
+ */
+require_once '../../Bootstrap.php';
+
+/**
  * handle a bundle
  *
  * @param GearmanJob $job  actual job instance

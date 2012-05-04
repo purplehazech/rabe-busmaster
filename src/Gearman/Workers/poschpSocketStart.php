@@ -13,6 +13,14 @@
  * @link       http://osc.purplehaze.ch
  */
 
+/**
+ * common worker bootstrap
+ */
+require_once '../../Bootstrap.php';
+
+/**
+ * osc parser
+ */
 require_once 'Osc/Parse.php';
 
 /**
