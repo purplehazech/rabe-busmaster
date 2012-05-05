@@ -27,7 +27,7 @@ require_once 'System/Daemon.php';
  * @todo make this thor a notice if argv[0] is > 16 chars
  */
 $name = substr(strtolower($argv[0]), 0, 16);
-$name = "test": // @todo see...
+$name = "test"; // @todo see...
 System_Daemon::setOption("appName", $name);
 
 /**
