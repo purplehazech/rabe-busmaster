@@ -77,6 +77,6 @@ class OscReceive {
 }
 
 // @todo repack into dc
-$o = new OscReceive;
+$o = new OscReceive($dc);
 $o->run();
 
