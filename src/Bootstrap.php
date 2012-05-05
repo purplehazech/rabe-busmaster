@@ -49,6 +49,6 @@ use Symfony\Component\DependencyInjection\Reference;
  * as i gots some module standards.
  */
 $dc = new ContainerBuilder();
-$dc->register('dispatcher', 'EventDispatcher')
+$dc->register('dispatcher', 'EventDispatcher');
 
 // @todo add signal handling events (as soon as i habe automated di container building)
