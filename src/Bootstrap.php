@@ -18,17 +18,37 @@
 $conf = parse_ini_file('/etc/busmaster/busmaster.ini', true);
 
 set_include_path(
-	dirname(__FILE__).'/:'.
-	dirname(__FILE__).'/../lib/'.
-	get_include_path()
+    dirname(__FILE__).'/:'.
+    dirname(__FILE__).'/../lib/'.
+    get_include_path()
 );
 
 /**
  * all components will need to dispatch events
  */
+require_once 'sfEventDispatcher/EventDispatcherInterface.php';
 require_once 'sfEventDispatcher/EventDispatcher.php';
 require_once 'sfEventDispatcher/Event.php';
 
-$dispatcher = new EventDispatcher();
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\Event;
+
+/**
+ * load and setup the dependency injector
+ */
+require_once 'sfDependencyInjection/ContainerBuilder.php';
+require_once 'sfDependencyInjection/Reference.php';
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
+
+/**
+ * bootstrap the dic
+ *
+ * i'll rewrite this to something more creative as soon
+ * as i gots some module standards.
+ */
+$dc = new ContainerBuilder();
+$dc->register('dispatcher', 'EventDispatcher')
 
 // @todo add signal handling events (as soon as i habe automated di container building)
