@@ -8,3 +8,6 @@
 [submodule "lib/sfDependencyInjection"]
 	path = lib/sfDependencyInjection
 	url = git://github.com/symfony/DependencyInjection.git
+[submodule "lib/sfConfig"]
+	path = lib/sfConfig
+	url = git://github.com/symfony/Config.git
