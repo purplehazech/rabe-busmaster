@@ -29,6 +29,9 @@ require_once 'System/Daemon.php';
 System_Daemon::setOption("appName", substr(strtolower($argv[0]), 0, 16));
 
 /**
- * daemonize right away
+ * daemonize when module confirms
  */
-System_Daemon::start();
+$dc->get('dispatcher')->addListener('/deamon/start', function (Event $event) {
+    System_Daemon::start();
+});
+
