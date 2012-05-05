@@ -4,8 +4,7 @@
 
     <!-- core services -->
     <service id="dispatcher" class="Symfony\Component\EventDispatcher\EventDispatcher"/>
-    <service id="event" class="Symfony\Component\EventDispatcher\Event"/>
+    <service id="event" class="Symfony\Component\EventDispatcher\Event" scope="prototype"/>
 
-    <!-- osc service -->
   </services>
 </container>
