@@ -34,4 +34,7 @@ $dp = new Symfony\Component\DependencyInjection\Dumper\PhpDumper($dc);
  * load from xml and recreate php file
  */
 $ld->load('services.xml');
-file_put_contents(__DIR__.'/../src/Bootstrap.dic.php', $dp->dump());
+file_put_contents(
+    __DIR__.'/../src/Bootstrap.dic.php',
+    $dp->dump(array('class' => 'BootstrapDic'))
+);
