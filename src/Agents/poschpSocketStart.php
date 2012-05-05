@@ -1,6 +1,6 @@
 <?php
 /**
- * Gearman Worker for starting socket connetions
+ * OSC Receiving Agent
  *
  * PHP Version 5
  *
@@ -16,7 +16,7 @@
 /**
  * common worker bootstrap
  */
-require_once dirname(__FILE__).'/../../Bootstrap.php';
+require_once dirname(__FILE__).'/Bootstrap.php';
 
 /**
  * osc parser
@@ -55,17 +55,8 @@ function poschpSocketStart($job, &$log)
             $osc->parse();
 
             // digest result in background
-            $gc = new GearmanClient();
-            $gc->addServer();
-            $gc->doBackground(
-                'poschpDigestMessage',
-                serialize(
-                    array(
-                        'from'=>$f,
-                        'data'=>$osc->getResult()
-                    )
-                )
-            );
+	    // @todo send message to mq
+	    $log[] = "Digested a message";
         }
 	usleep(500000); // 0.5 secs
     }
@@ -73,3 +64,4 @@ function poschpSocketStart($job, &$log)
     return true;
 }
 
+poschSocketStart();
