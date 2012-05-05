@@ -23,3 +23,12 @@ set_include_path(
 	get_include_path()
 );
 
+/**
+ * all components will need to dispatch events
+ */
+require_once 'sfEventDispatcher/EventDispatcher.php';
+require_once 'sfEventDispatcher/Event.php';
+
+$dispatcher = new EventDispatcher();
+
+// @todo add signal handling events (as soon as i habe automated di container building)
