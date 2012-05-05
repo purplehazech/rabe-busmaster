@@ -23,6 +23,12 @@ require_once dirname(__FILE__).'/../Bootstrap.php';
 require_once 'System/Daemon.php';
 
 /**
+ * minimal config
+ * @todo make this thor a notice if argv[0] is > 16 chars
+ */
+System_Daemon::setOption("appName", substr(strtolower($argv[0]), 0, 16));
+
+/**
  * daemonize right away
  */
 System_Daemon::start();

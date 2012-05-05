@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 /**
  * OSC Receiving Agent
@@ -64,4 +65,4 @@ function poschpSocketStart($job, &$log)
     return true;
 }
 
-poschSocketStart();
+poschpSocketStart();
