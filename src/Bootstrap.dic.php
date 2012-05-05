@@ -42,13 +42,10 @@ class BootstrapDic extends Container
     /**
      * Gets the 'event' service.
      *
-     * This service is shared.
-     * This method always returns the same instance of the service.
-     *
      * @return Symfony\Component\EventDispatcher\Event A Symfony\Component\EventDispatcher\Event instance.
      */
     protected function getEventService()
     {
-        return $this->services['event'] = new \Symfony\Component\EventDispatcher\Event();
+        return new \Symfony\Component\EventDispatcher\Event();
     }
 }
