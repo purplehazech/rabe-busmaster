@@ -67,6 +67,7 @@ function poschpSocketStart($job, &$log)
                 )
             );
         }
+	usleep(500000); // 0.5 secs
     }
 
     return true;
