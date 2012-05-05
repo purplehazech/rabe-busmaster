@@ -2,3 +2,6 @@
 	path = lib/zabbix-sernder-php
 	url = git://github.com/hairmare/zabbix-sender-php.git
 
+[submodule "lib/sfEventDispatcher"]
+	path = lib/sfEventDispatcher
+	url = git://github.com/symfony/EventDispatcher.git
