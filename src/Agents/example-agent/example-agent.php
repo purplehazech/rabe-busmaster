@@ -34,4 +34,12 @@ class ExampleAgent {
 
         $this->_dispatcher->dispatch('/log/info', new LogEvent('loaded '.__CLASS__));
     }
+
+    function run() {
+
+        $this->_dispatcher->dispatch('/daemon/start');
+    }
 }
+
+$o = new ExampleAgent($dc);
+$o->run();

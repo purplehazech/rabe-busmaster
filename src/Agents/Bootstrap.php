@@ -26,12 +26,14 @@ require_once 'System/Daemon.php';
  * minimal config
  * @todo make this thor a notice if argv[0] is > 16 chars
  */
-System_Daemon::setOption("appName", substr(strtolower($argv[0]), 0, 16));
+$name = substr(strtolower($argv[0]), 0, 16);
+$name = "test": // @todo see...
+System_Daemon::setOption("appName", $name);
 
 /**
  * daemonize when module confirms
  */
-$dc->get('dispatcher')->addListener('/deamon/start', function (Event $event) {
+$dc->get('dispatcher')->addListener('/daemon/start', function (Symfony\Component\EventDispatcher\Event $event) {
     System_Daemon::start();
 });
 

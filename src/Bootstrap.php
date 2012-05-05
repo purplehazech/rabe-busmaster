@@ -30,12 +30,13 @@ require_once 'sfEventDispatcher/EventDispatcherInterface.php';
 require_once 'sfEventDispatcher/EventDispatcher.php';
 require_once 'sfEventDispatcher/Event.php';
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * load and setup the dependency injector
  */
+require_once 'sfDependencyInjection/Exception/ExceptionInterface.php';
+require_once 'sfDependencyInjection/Exception/InvalidArgumentException.php';
+require_once 'sfDependencyInjection/Exception/ServiceNotFoundException.php';
 require_once 'sfDependencyInjection/Definition.php';
 require_once 'sfDependencyInjection/ParameterBag/ParameterBagInterface.php';
 require_once 'sfDependencyInjection/ParameterBag/ParameterBag.php';
@@ -56,6 +57,7 @@ use Symfony\Component\DependencyInjection\Reference;
  * as i gots some module standards.
  */
 $dc = new ContainerBuilder();
-$dc->register('dispatcher', 'EventDispatcher');
+$dc->register('dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher');
+$dc->register('event', 'Symfony\Component\EventDispatcher\Event');
 
 // @todo add signal handling events (as soon as i habe automated di container building)

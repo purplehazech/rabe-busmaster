@@ -30,6 +30,12 @@ class OscReceive {
         $this->_dispatcher = $dc->get('dispatcher');
     }
 
+    function run() {
+        $this->_dispatcher->dispatch('/daemon/start');
+        $this->start_socket();
+    }
+
+
     /**
      * digest and dispatch a package
      *
@@ -43,6 +49,7 @@ class OscReceive {
     
         $ip = $conf['osc']['listen_host'];
         $port = $conf['osc']['listen_port'];
+
 
         $this->_dispatcher->dispatch('/log/info', new LogEvent('Creating Socket and starting Listener'));
     
@@ -71,5 +78,5 @@ class OscReceive {
 
 // @todo repack into dc
 $o = new OscReceive;
-$o->start_socket();
+$o->run();
 
