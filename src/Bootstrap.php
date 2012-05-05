@@ -36,6 +36,13 @@ use Symfony\Component\EventDispatcher\Event;
 /**
  * load and setup the dependency injector
  */
+require_once 'sfDependencyInjection/Definition.php';
+require_once 'sfDependencyInjection/ParameterBag/ParameterBagInterface.php';
+require_once 'sfDependencyInjection/ParameterBag/ParameterBag.php';
+require_once 'sfDependencyInjection/ContainerInterface.php';
+require_once 'sfDependencyInjection/TaggedContainerInterface.php';
+require_once 'sfDependencyInjection/IntrospectableContainerInterface.php';
+require_once 'sfDependencyInjection/Container.php';
 require_once 'sfDependencyInjection/ContainerBuilder.php';
 require_once 'sfDependencyInjection/Reference.php';
 
