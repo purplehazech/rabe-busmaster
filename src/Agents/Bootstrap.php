@@ -25,7 +25,7 @@ require_once 'System/Daemon.php';
 /**
  * minimal config
  */
-System_Daemon::setOption("appName", DAEMON_APPNAME);
+System_Daemon::setOption("appName", strtolower(DAEMON_NAME));
 System_Daemon::setOption("usePEARLogInstance", $dc->get('logger'));
 
 /**
