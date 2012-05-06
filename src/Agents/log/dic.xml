@@ -17,4 +17,4 @@
       <argument>syslog</argument>
     </service>
   </services>
-</r>
+</container>
