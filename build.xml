@@ -6,6 +6,29 @@
 
     <!-- -->
     <target name="build">
+        <!-- update services.xml -->
+            <exec executable="php" failonerror="true" dir="etc/">
+            <arg value="../build/update-dic-services.php"/>
+            <arg value="../"/>
+            <arg value="services.xml"/>
+        </exec>
+        <exec executable="xmllint" failonerror="true">
+            <arg value="--format"/>
+            <arg value="etc/services.xml"/>
+            <arg value=">"/>
+            <arg value="etc/services.xml.format"/>
+        </exec>
+        <exec executable="mv" failonerror="true"/>
+            <arg value="etc/services.xml.format"/>
+            <arg value="etc/services.xml"/>
+        </exec>
+        <exec executable="git" failonerror="false">
+            <arg value="commit"/>
+            <arg value="-m"/>
+            <arg value="autoupdated services.xml"/>
+            <arg value="etc/services.xml"/>
+        </exec>
+        <!-- update Bootstrap.dic.php -->
         <exec executable="php" failonerror="true">
             <arg value="./build/update-dic.php"/>
         </exec>
@@ -33,19 +56,19 @@
     </target>
 
     <!-- 
-	 Deploy to webhost dir
+         Deploy to webhost dir
 
-	 This is used for building further packages that get deployed
-	 everywhere else
+         This is used for building further packages that get deployed
+         everywhere else
     -->
     <target name="deploy-web">
         <exec executable="cat" outputproperty="version">
             <arg value="VERSION"/>
         </exec>
         <exec executable="cp" failonerror="true">
-	    <arg value="build/rabe-busmaster-${version}.tar.bz2"/>
-	    <arg value="/var/www/distfile-repo.jenkins-01.hq.rabe.ch/htdocs/"/>
-	</exec>
+            <arg value="build/rabe-busmaster-${version}.tar.bz2"/>
+            <arg value="/var/www/distfile-repo.jenkins-01.hq.rabe.ch/htdocs/"/>
+        </exec>
     </target>
 
     <target name="pkg">
@@ -62,12 +85,12 @@
             <arg value="-F." />
             <arg value='1{$NF+=1; OFS="."; print $0}'/>
             <arg value="VERSION"/>
-	</exec>
+        </exec>
         <exec executable="git" failonerror="true">
             <arg value="commit"/>
             <arg value="-m"/>
             <arg value="version bump"/>
-	    <arg value="VERSION"/>
+            <arg value="VERSION"/>
         </exec>
     </target>
 
