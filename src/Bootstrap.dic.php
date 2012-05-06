@@ -63,16 +63,16 @@ class BootstrapDic extends Container
     }
 
     /**
-     * Gets the 'osc-dispatch.poll' service.
+     * Gets the 'oscdispatch.poll' service.
      *
      * This service is shared.
      * This method always returns the same instance of the service.
      *
      * @return ZMQPoll A ZMQPoll instance.
      */
-    protected function getOscDispatch_PollService()
+    protected function getOscdispatch_PollService()
     {
-        $this->services['osc-dispatch.poll'] = $instance = new \ZMQPoll();
+        $this->services['oscdispatch.poll'] = $instance = new \ZMQPoll();
 
         $instance->add(1);
 
@@ -80,16 +80,16 @@ class BootstrapDic extends Container
     }
 
     /**
-     * Gets the 'osc-dispatch.poll-ctrl' service.
+     * Gets the 'oscdispatch.pollctrl' service.
      *
      * This service is shared.
      * This method always returns the same instance of the service.
      *
      * @return ZMQSocket A ZMQSocket instance.
      */
-    protected function getOscDispatch_PollCtrlService()
+    protected function getOscdispatch_PollctrlService()
     {
-        $this->services['osc-dispatch.poll-ctrl'] = $instance = $this->get('osc-dispatch.poll-zmq')->getSocket(7);
+        $this->services['oscdispatch.pollctrl'] = $instance = $this->get('oscDispatch.pollZmq')->getSocket(7);
 
         $instance->setSockOpt(1, 1);
         $instance->connect('ipc:///tmp/osc-dispatch.poll.socket-ctrl');
@@ -98,15 +98,15 @@ class BootstrapDic extends Container
     }
 
     /**
-     * Gets the 'osc-dispatch.poll-zmq' service.
+     * Gets the 'oscdispatch.pollzmq' service.
      *
      * This service is shared.
      * This method always returns the same instance of the service.
      *
      * @return ZMQContext A ZMQContext instance.
      */
-    protected function getOscDispatch_PollZmqService()
+    protected function getOscdispatch_PollzmqService()
     {
-        return $this->services['osc-dispatch.poll-zmq'] = new \ZMQContext();
+        return $this->services['oscdispatch.pollzmq'] = new \ZMQContext();
     }
 }
