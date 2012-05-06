@@ -5,6 +5,7 @@ require_once dirname(__FILE__).'/../src/Bootstrap.php';
 /**
  * load xml loader and php dumper
  */
+require_once 'sfConfig/Exception/FileLoaderLoadException.php';
 require_once 'sfConfig/FileLocatorInterface.php';
 require_once 'sfConfig/FileLocator.php';
 require_once 'sfConfig/Resource/ResourceInterface.php';
