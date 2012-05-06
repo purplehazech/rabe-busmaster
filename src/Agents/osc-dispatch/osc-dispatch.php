@@ -23,8 +23,8 @@ class OscDispatch
     function __construct($dc) {
         $this->_dispatcher = $dc->get('dispatcher');
         $this->_logger = $dc->get('logger');
-        $this->_workPoll = $dc->get('osc-dispatch.poll');
-        $this->_ctrlPoll = $dc->get('osc-dispatch.poll-ctrl');
+        $this->_workPoll = $dc->get('oscDispatch.poll');
+        $this->_ctrlPoll = $dc->get('oscDispatch.pollCtrl');
     }
 
     function run() {
