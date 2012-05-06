@@ -8,7 +8,7 @@
     <target name="build">
         <!-- update services.xml -->
         <exec executable="php" failonerror="true" dir="etc/">
-            <arg value="../build/update-dic-services.php"/>
+            <arg value="../build/update-dic-service.php"/>
             <arg value="../"/>
             <arg value="services.xml"/>
         </exec>
