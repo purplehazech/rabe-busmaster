@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+  <services>
+    <service id="osc-dispatch.poll-zmq" class="ZMQContext"/>
+
+    <service id="osc-dispatch.poll" class="ZMQPoll">
+      <call method="add">
+        <service id="osc-dispatch.poll.socket-work" class="ZMQSocket" factory-service="osc-dispatch.poll-zmq" factory-method="getSocket">
+          <!-- ZMQ::SOCKET_PULL -->
+          <argument>7</argument>
+          <call method="setSockOpt">
+            <!-- ZMQ::SOCKOPT_HWM -->
+            <argument>1</argument>
+            <argument>1</argument>
+          </call>
+          <call method="connect">
+            <argument>ipc:///tmp/osc-dispatch.poll.socket-work</argument>
+          </call>
+        </service>
+        <!-- ZMQ::POLL_IN -->
+        <argument>1</argument> 
+      </call>
+    </service>
+
+    <service id="osc-dispatch.poll-ctrl" class="ZMQSocket" factory-service="osc-dispatch.poll-zmq" factory-method="getSocket">
+      <!-- ZMQ::SOCKET_PULL -->
+      <argument>7</argument>
+      <call method="setSockOpt">
+        <!-- ZMQ::SOCKOPT_HWM -->
+        <argument>1</argument>
+        <argument>1</argument>
+      </call>
+      <call method="connect">
+        <argument>ipc:///tmp/osc-dispatch.poll.socket-ctrl</argument>
+      </call>
+    </service>
+
+
+    <service id="logger" class="Log" factory-class="Log" factory-method="factory">
+      <argument>file</argument>
+      <argument>/var/log/busmaster.log</argument>
+      <argument>BUSMASTER</argument>
+    </service>
+  </services>
+</container>
