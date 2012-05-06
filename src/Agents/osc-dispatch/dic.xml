@@ -5,7 +5,7 @@
 
     <service id="oscDispatch.poll" class="ZMQPoll">
       <call method="add">
-        <service id="oscDispatch.poll.socketWork"/>
+        <argument type="service" id="oscDispatch.poll.socketWork"/>
         <!-- ZMQ::POLL_IN -->
         <argument>1</argument> 
       </call>
