@@ -6,7 +6,7 @@
 
     <!-- -->
     <target name="build">
-        <exec executable="php">
+        <exec executable="php" failonerror="true">
             <arg value="./build/update-dic.php"/>
         </exec>
         <exec executable="git" failonerror="true">
