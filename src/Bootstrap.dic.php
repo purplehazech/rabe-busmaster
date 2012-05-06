@@ -74,7 +74,7 @@ class BootstrapDic extends Container
     {
         $this->services['oscdispatch.poll'] = $instance = new \ZMQPoll();
 
-        $instance->add(1);
+        $instance->add($this->get('oscdispatch.poll.socketwork'), 1);
 
         return $instance;
     }
