@@ -127,4 +127,66 @@ class BootstrapDic extends Container
     {
         return $this->services['oscdispatch.pollzmq'] = new \ZMQContext();
     }
+
+    /**
+     * Gets the 'oscreceive.oscparser' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Osc_Parse A Osc_Parse instance.
+     */
+    protected function getOscreceive_OscparserService()
+    {
+        return $this->services['oscreceive.oscparser'] = new \Osc_Parse();
+    }
+
+    /**
+     * Gets the 'oscreceive.pollctrl' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return ZMQSocket A ZMQSocket instance.
+     */
+    protected function getOscreceive_PollctrlService()
+    {
+        $this->services['oscreceive.pollctrl'] = $instance = $this->get('oscReceive.pollZmq')->getSocket(7);
+
+        $instance->setSockOpt(1, 1);
+        $instance->connect('ipc:///tmp/osc-receive.poll.socket-ctrl');
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'oscreceive.pollzmq' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return ZMQContext A ZMQContext instance.
+     */
+    protected function getOscreceive_PollzmqService()
+    {
+        return $this->services['oscreceive.pollzmq'] = new \ZMQContext();
+    }
+
+    /**
+     * Gets the 'oscreceive.pushsocket.oscdispatch' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return ZMQSocket A ZMQSocket instance.
+     */
+    protected function getOscreceive_Pushsocket_OscdispatchService()
+    {
+        $this->services['oscreceive.pushsocket.oscdispatch'] = $instance = $this->get('oscReceive.pollZmq')->getSocket(8);
+
+        $instance->setSockOpt(1, 1);
+        $instance->connect('ipc:///tmp/osc-dispatch.poll.socket-work');
+
+        return $instance;
+    }
 }
