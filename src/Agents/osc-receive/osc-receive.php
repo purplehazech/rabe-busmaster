@@ -73,7 +73,7 @@ class OscReceive
 		$this->_workPoll->send(json_encode($oscdata));
 
 		// log info 
-                $this->_logger->debug(__CLASS__."Digested a message");
+                $this->_logger->debug(__CLASS__." digested an OSC message");
             }
             usleep(500000); // 0.5 secs
         }

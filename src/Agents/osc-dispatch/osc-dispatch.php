@@ -34,13 +34,16 @@ class OscDispatch
 
     function run() {
         $this->_dispatcher->dispatch('/daemon/start');
+        $this->_logger->log(sprintf('Polling Worker Queue'));
 
         $r = $w = array();
         while(true) {
             $e = $this->_workPoll->poll($r, $w, 5000);
             if ($e) {
                 // do the work
+                $this->_logger->debug(sprintf('Digesting Work'));
                 $this->digest(json_decode($this->_workPoll->recv()));
+                $this->_logger->debug(sprintf('Digested Work'));
             } else {
                 if ($this->_ctrlPoll->recv(ZMQ::MODE_NOBLOCK)) {
                     exit;
