@@ -3,7 +3,11 @@
 
   <imports>
     <import resource="../src/Agents/log/dic.xml"/>
+<<<<<<< HEAD
     <import resource="../src/Agents/osc-dispatch/dic.xml"/>
+=======
+    <import resource="../src/Agents/osc-receive/dic.xml"/>
+>>>>>>> d52a0c5a850e0d4de03d7a3a6d105e1a6beb49cc
   </imports>
 
   <services>

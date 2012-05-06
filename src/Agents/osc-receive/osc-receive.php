@@ -23,9 +23,8 @@ require_once dirname(__FILE__).'/../Bootstrap.php';
  */
 require_once 'Osc/Parse.php';
 
-class OscReceive {
-
-
+class OscReceive
+{
     function __construct($dc) {
         $this->_dispatcher = $dc->get('dispatcher');
         $this->_logger = $dc->get('logger');
