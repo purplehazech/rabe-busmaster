@@ -29,7 +29,7 @@ require_once 'System/Daemon.php';
 $name = substr(strtolower($argv[0]), 0, 16);
 $name = "test"; // @todo see...
 System_Daemon::setOption("appName", $name);
-System_Daemon::setOption("usePEARLogInstance", $dc->getLoggerService());
+System_Daemon::setOption("usePEARLogInstance", $dc->get('logger'));
 
 /**
  * daemonize when module confirms
