@@ -58,8 +58,6 @@ class OscReceive
         $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         $r = socket_bind($socket, $ip, $port);
     
-        $osc = $this->_osc;
-    
         while (true) {
             if (socket_recvfrom($socket, $b, 9999, 0, $f, $p)) {
     
@@ -80,9 +78,9 @@ class OscReceive
 
     protected function parse_buffer()
     {
-        $osc->setDataString($b);
-        $osc->parse();
-        return $osc->getResult();
+        $this->_osc->setDataString($b);
+        $this->_osc->parse();
+        return $this->_osc->getResult();
     }
 }
 
