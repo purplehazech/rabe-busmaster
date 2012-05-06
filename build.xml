@@ -12,11 +12,9 @@
             <arg value="../"/>
             <arg value="services.xml"/>
         </exec>
-        <exec executable="xmllint" failonerror="true">
+        <exec executable="xmllint" failonerror="true" output="etc/services.xml.format" logError="true">
             <arg value="--format"/>
             <arg value="etc/services.xml"/>
-            <arg value=">"/>
-            <arg value="etc/services.xml.format"/>
         </exec>
         <exec executable="mv" failonerror="true">
             <arg value="etc/services.xml.format"/>

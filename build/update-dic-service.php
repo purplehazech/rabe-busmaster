@@ -18,7 +18,7 @@ foreach ($i AS $v) {
                 $new->addAttribute('resource', (string)$v);
         } else {
 		// all good no need to prune
-		unset($dics[(string) $vi]);
+		unset($dics[(string) $v]);
 	}
 }
 $xml->saveXml($argv[2]);
