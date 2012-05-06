@@ -3,6 +3,7 @@
 
   <imports>
     <import resource="../src/Agents/log/dic.xml"/>
+    <import resource="../src/Agents/osc-dispatch/dic.xml"/>
   </imports>
 
   <services>
