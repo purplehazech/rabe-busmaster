@@ -80,6 +80,24 @@ class BootstrapDic extends Container
     }
 
     /**
+     * Gets the 'oscdispatch.poll.socketwork' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return ZMQSocket A ZMQSocket instance.
+     */
+    protected function getOscdispatch_Poll_SocketworkService()
+    {
+        $this->services['oscdispatch.poll.socketwork'] = $instance = $this->get('oscDispatch.pollZmq')->getSocket(7);
+
+        $instance->setSockOpt(1, 1);
+        $instance->connect('ipc:///tmp/osc-dispatch.poll.socket-work');
+
+        return $instance;
+    }
+
+    /**
      * Gets the 'oscdispatch.pollctrl' service.
      *
      * This service is shared.
