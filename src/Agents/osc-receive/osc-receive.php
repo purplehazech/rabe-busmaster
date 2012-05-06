@@ -28,6 +28,7 @@ class OscReceive {
 
     function __construct($dc) {
         $this->_dispatcher = $dc->get('dispatcher');
+        $this->_logger = $dc->get('logger');
     }
 
     function run() {
@@ -50,8 +51,7 @@ class OscReceive {
         $ip = $conf['osc']['listen_host'];
         $port = $conf['osc']['listen_port'];
 
-
-        $this->_dispatcher->dispatch('/log/info', new LogEvent('Creating Socket and starting Listener'));
+        $this->_logger->log(sprintf('Creating socket on %s:%s', $ip, $port));
     
         $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         $r = socket_bind($socket, $ip, $port);
@@ -67,7 +67,7 @@ class OscReceive {
     
                 // digest result in background
                 // @todo send message to mq
-                $log[] = "Digested a message";
+                $this->_logger->log("Digested a message");
             }
             usleep(500000); // 0.5 secs
         }
