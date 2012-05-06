@@ -70,7 +70,7 @@ class BootstrapDic extends Container
      *
      * @return ZMQPoll A ZMQPoll instance.
      */
-    protected function getOsc-dispatch_PollService()
+    protected function getOscDispatch_PollService()
     {
         $this->services['osc-dispatch.poll'] = $instance = new \ZMQPoll();
 
@@ -87,7 +87,7 @@ class BootstrapDic extends Container
      *
      * @return ZMQSocket A ZMQSocket instance.
      */
-    protected function getOsc-dispatch_Poll-ctrlService()
+    protected function getOscDispatch_PollCtrlService()
     {
         $this->services['osc-dispatch.poll-ctrl'] = $instance = $this->get('osc-dispatch.poll-zmq')->getSocket(7);
 
@@ -105,7 +105,7 @@ class BootstrapDic extends Container
      *
      * @return ZMQContext A ZMQContext instance.
      */
-    protected function getOsc-dispatch_Poll-zmqService()
+    protected function getOscDispatch_PollZmqService()
     {
         return $this->services['osc-dispatch.poll-zmq'] = new \ZMQContext();
     }
