@@ -28,6 +28,9 @@ class OscReceive
     function __construct($dc) {
         $this->_dispatcher = $dc->get('dispatcher');
         $this->_logger = $dc->get('logger');
+    	$this->_osc = $dc->get('oscReceive.oscParser');
+	$this->_workPoll = $dc->get('oscReceive.pushSocket.oscDispatch');
+        $this->_ctrlPoll = $dc->get('oscReceive.pollCtrl');
     }
 
     function run() {
@@ -55,23 +58,31 @@ class OscReceive
         $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         $r = socket_bind($socket, $ip, $port);
     
-        $osc = new Osc_Parse;
+        $osc = $this->_osc;
     
         while (true) {
             if (socket_recvfrom($socket, $b, 9999, 0, $f, $p)) {
     
                 // parse incoming buffer
-                $osc->setDataString($b);
-                $osc->parse();
-    
-                // digest result in background
-                // @todo send message to mq
-                $this->_logger->log("Digested a message");
+    		$oscdata = $this->parse_buffer($b);
+
+                // digest results in background
+		$this->_workPoll->send(json_encode($oscdata));
+
+		// log info 
+                $this->_logger->debug(__CLASS__."Digested a message");
             }
             usleep(500000); // 0.5 secs
         }
     
         return true;
+    }
+
+    protected function parse_buffer()
+    {
+        $osc->setDataString($b);
+        $osc->parse();
+        return $osc->getResult();
     }
 }
 

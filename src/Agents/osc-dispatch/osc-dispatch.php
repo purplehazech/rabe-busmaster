@@ -35,9 +35,9 @@ class OscDispatch
             $e = $this->_workPoll->poll($r, $w, 5000);
             if ($e) {
                 // do the work
-                $this->digest();
+                $this->digest(json_decode($this->_workPoll->recv()));
             } else {
-                if ($this->_pollCtrl->recv(ZMQ::MODE_NOBLOCK)) {
+                if ($this->_ctrlPoll->recv(ZMQ::MODE_NOBLOCK)) {
                     exit;
                 }
             }
@@ -47,13 +47,16 @@ class OscDispatch
     /**
      * digest and dispatch a package
      *
+     * @param Object $oscdata
      * @return void
      *
      * @todo this will need to handle the osc address patterns as per spec
      * @todo refactor me into heaps of classes
      */
-    function digest($address)
+    function digest($oscdata)
     {
+        $address = $data['data']['address'];
+
         // @todo fix trailing \0 byte probles in parser where they arise
         $address = str_replace("\0", '', $address);
 
