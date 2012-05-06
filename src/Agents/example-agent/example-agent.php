@@ -32,9 +32,6 @@ class ExampleAgent {
 
         $this->_dispatcher = $dc->get('dispatcher');
         $this->_logger = $dc->get('logger');
-
-        
-        $this->_dispatcher->dispatch('/log/info', new LogEvent('loaded '.__CLASS__));
     }
 
     function run() {
