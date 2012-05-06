@@ -63,6 +63,32 @@ class BootstrapDic extends Container
     }
 
     /**
+     * Gets the 'logger.console' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * 
+     */
+    protected function getLogger_ConsoleService()
+    {
+        return $this->services['logger.console'] = new \UL('console');
+    }
+
+    /**
+     * Gets the 'logger.syslog' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * 
+     */
+    protected function getLogger_SyslogService()
+    {
+        return $this->services['logger.syslog'] = new \UL('syslog');
+    }
+
+    /**
      * Gets the 'oscdispatch.poll' service.
      *
      * This service is shared.
