@@ -5,20 +5,22 @@
 
     <service id="oscDispatch.poll" class="ZMQPoll">
       <call method="add">
-        <service id="oscDispatch.poll.socketWork" class="ZMQSocket" factory-service="oscDispatch.pollZmq" factory-method="getSocket">
-          <!-- ZMQ::SOCKET_PULL -->
-          <argument>7</argument>
-          <call method="setSockOpt">
-            <!-- ZMQ::SOCKOPT_HWM -->
-            <argument>1</argument>
-            <argument>1</argument>
-          </call>
-          <call method="connect">
-            <argument>ipc:///tmp/osc-dispatch.poll.socket-work</argument>
-          </call>
-        </service>
+        <service id="oscDispatch.poll.socketWork"/>
         <!-- ZMQ::POLL_IN -->
         <argument>1</argument> 
+      </call>
+    </service>
+
+    <service id="oscDispatch.poll.socketWork" class="ZMQSocket" factory-service="oscDispatch.pollZmq" factory-method="getSocket">
+      <!-- ZMQ::SOCKET_PULL -->
+      <argument>7</argument>
+      <call method="setSockOpt">
+        <!-- ZMQ::SOCKOPT_HWM -->
+        <argument>1</argument>
+        <argument>1</argument>
+      </call>
+      <call method="connect">
+        <argument>ipc:///tmp/osc-dispatch.poll.socket-work</argument>
       </call>
     </service>
 
