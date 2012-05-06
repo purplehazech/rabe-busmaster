@@ -14,6 +14,11 @@
  */
 
 /**
+ * daemon name
+ */
+define('DAEMON_NAME', 'exampleAgent');
+
+/**
  * common worker bootstrap
  *
  * feel free to call this from you own bootstrap if you need 

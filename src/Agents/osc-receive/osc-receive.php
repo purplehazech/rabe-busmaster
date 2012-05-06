@@ -14,6 +14,11 @@
  */
 
 /**
+ * daemon name
+ */
+define('DAEMON_NAME', 'oscReceice');
+
+/**
  * common worker bootstrap
  */
 require_once dirname(__FILE__).'/../Bootstrap.php';
