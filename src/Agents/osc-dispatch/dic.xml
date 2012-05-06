@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
   <services>
-    <service id="osc-dispatch.poll-zmq" class="ZMQContext"/>
+    <service id="oscDispatch.pollZmq" class="ZMQContext"/>
 
-    <service id="osc-dispatch.poll" class="ZMQPoll">
+    <service id="oscDispatch.poll" class="ZMQPoll">
       <call method="add">
-        <service id="osc-dispatch.poll.socket-work" class="ZMQSocket" factory-service="osc-dispatch.poll-zmq" factory-method="getSocket">
+        <service id="oscDispatch.poll.socketWork" class="ZMQSocket" factory-service="oscDispatch.pollZmq" factory-method="getSocket">
           <!-- ZMQ::SOCKET_PULL -->
           <argument>7</argument>
           <call method="setSockOpt">
@@ -22,7 +22,7 @@
       </call>
     </service>
 
-    <service id="osc-dispatch.poll-ctrl" class="ZMQSocket" factory-service="osc-dispatch.poll-zmq" factory-method="getSocket">
+    <service id="oscDispatch.pollCtrl" class="ZMQSocket" factory-service="oscDispatch.pollZmq" factory-method="getSocket">
       <!-- ZMQ::SOCKET_PULL -->
       <argument>7</argument>
       <call method="setSockOpt">
