@@ -50,6 +50,19 @@ class BootstrapDic extends Container
     }
 
     /**
+     * Gets the 'logger' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Log A Log instance.
+     */
+    protected function getLoggerService()
+    {
+        return $this->services['logger'] = call_user_func(array('Log', 'factory'), 'file', '/var/log/busmaster.log', 'BUSMASTER');
+    }
+
+    /**
      * Gets the 'logger.console' service.
      *
      * This service is shared.
