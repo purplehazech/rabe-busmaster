@@ -6,6 +6,19 @@
 
     <!-- -->
     <target name="build">
+	<!-- update Autolaoder -->
+        <exec executable="php" failonerror="true" dir="etc/">
+            <arg value="../build/update-autoloader.php"/>
+            <arg value="../"/>
+            <arg value="services.xml"/>
+        </exec>
+        <exec executable="git" failonerror="false">
+            <arg value="commit"/>
+            <arg value="-m"/>
+            <arg value="regenerated autoloader"/>
+            <arg value="etc/services.xml"/>
+        </exec>
+
         <!-- update services.xml -->
         <exec executable="php" failonerror="true" dir="etc/">
             <arg value="../build/update-dic-service.php"/>
@@ -26,6 +39,7 @@
             <arg value="autoupdated services.xml"/>
             <arg value="etc/services.xml"/>
         </exec>
+
         <!-- update Bootstrap.dic.php -->
         <exec executable="php" failonerror="true">
             <arg value="./build/update-dic.php"/>
