@@ -37,11 +37,5 @@
       </call>
     </service>
 
-
-    <service id="logger" class="Log" factory-class="Log" factory-method="factory">
-      <argument>file</argument>
-      <argument>/var/log/busmaster.log</argument>
-      <argument>BUSMASTER</argument>
-    </service>
   </services>
 </container>
