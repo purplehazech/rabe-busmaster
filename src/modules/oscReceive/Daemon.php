@@ -16,7 +16,7 @@
 /**
  * daemon name
  */
-define('DAEMON_NAME', 'oscReceice');
+define('DAEMON_NAME', basename(__DIR__));
 
 /**
  * common worker bootstrap

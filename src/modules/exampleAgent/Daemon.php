@@ -15,8 +15,12 @@
 
 /**
  * daemon name
+ *
+ * This is needed by the daemon runner and it must be unique 
+ * over the machine it is. Also 16 chars is the limit on this
+ * name.
  */
-define('DAEMON_NAME', 'exampleAgent');
+define('DAEMON_NAME', basename(__DIR__));
 
 /**
  * common worker bootstrap
