@@ -19,7 +19,7 @@
         <argument>1</argument>
         <argument>1</argument>
       </call>
-      <call method="connect">
+      <call method="bind">
         <argument>ipc:///tmp/osc-dispatch.poll.socket-work</argument>
       </call>
     </service>
@@ -32,7 +32,7 @@
         <argument>1</argument>
         <argument>1</argument>
       </call>
-      <call method="connect">
+      <call method="bind">
         <argument>ipc:///tmp/osc-dispatch.poll.socket-ctrl</argument>
       </call>
     </service>
