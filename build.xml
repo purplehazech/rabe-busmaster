@@ -16,7 +16,7 @@
             <arg value="commit"/>
             <arg value="-m"/>
             <arg value="regenerated autoloader map"/>
-            <arg value="etc/services.xml"/>
+            <arg value="src/Bootstrap.map.php"/>
         </exec>
 
         <!-- update services.xml -->
