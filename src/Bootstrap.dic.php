@@ -111,6 +111,24 @@ class BootstrapDic extends Container
     }
 
     /**
+     * Gets the 'oscdispatch.poll.socketctrl' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return ZMQSocket A ZMQSocket instance.
+     */
+    protected function getOscdispatch_Poll_SocketctrlService()
+    {
+        $this->services['oscdispatch.poll.socketctrl'] = $instance = $this->get('oscDispatch.pollZmq')->getSocket(7);
+
+        $instance->setSockOpt(1, 1);
+        $instance->bind('ipc:///tmp/osc-dispatch.poll.socket-ctrl');
+
+        return $instance;
+    }
+
+    /**
      * Gets the 'oscdispatch.poll.socketwork' service.
      *
      * This service is shared.
@@ -123,25 +141,7 @@ class BootstrapDic extends Container
         $this->services['oscdispatch.poll.socketwork'] = $instance = $this->get('oscDispatch.pollZmq')->getSocket(7);
 
         $instance->setSockOpt(1, 1);
-        $instance->connect('ipc:///tmp/osc-dispatch.poll.socket-work');
-
-        return $instance;
-    }
-
-    /**
-     * Gets the 'oscdispatch.pollctrl' service.
-     *
-     * This service is shared.
-     * This method always returns the same instance of the service.
-     *
-     * @return ZMQSocket A ZMQSocket instance.
-     */
-    protected function getOscdispatch_PollctrlService()
-    {
-        $this->services['oscdispatch.pollctrl'] = $instance = $this->get('oscDispatch.pollZmq')->getSocket(7);
-
-        $instance->setSockOpt(1, 1);
-        $instance->connect('ipc:///tmp/osc-dispatch.poll.socket-ctrl');
+        $instance->bind('ipc:///tmp/osc-dispatch.poll.socket-work');
 
         return $instance;
     }
@@ -185,7 +185,7 @@ class BootstrapDic extends Container
         $this->services['oscreceive.pollctrl'] = $instance = $this->get('oscReceive.pollZmq')->getSocket(7);
 
         $instance->setSockOpt(1, 1);
-        $instance->bind('ipc:///tmp/osc-receive.poll.socket-ctrl');
+        $instance->connect('ipc:///tmp/osc-receive.poll.socket-ctrl');
 
         return $instance;
     }
@@ -216,7 +216,7 @@ class BootstrapDic extends Container
         $this->services['oscreceive.pushsocket.oscdispatch'] = $instance = $this->get('oscReceive.pollZmq')->getSocket(8);
 
         $instance->setSockOpt(1, 1);
-        $instance->bind('ipc:///tmp/osc-dispatch.poll.socket-work');
+        $instance->connect('ipc:///tmp/osc-dispatch.poll.socket-work');
 
         return $instance;
     }
