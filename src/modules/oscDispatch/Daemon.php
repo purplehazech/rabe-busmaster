@@ -35,16 +35,15 @@ class OscDispatch
 
     function run() {
         $this->_dispatcher->dispatch('/daemon/start');
-        $this->_logger->log(sprintf('Polling Worker Queue'));
+        $this->_logger->log(sprintf('polling worker queue'));
 
         $r = $w = array();
         while(true) {
             $e = $this->_workPoll->poll($r, $w, 5000);
             if ($e) {
                 // do the work
-                $this->_logger->debug(sprintf('Digesting Work'));
+                $this->_logger->debug(sprintf('digesting OSC datagram'));
                 $this->digest(json_decode($this->_workSocket->recv()));
-                $this->_logger->debug(sprintf('Digested Work'));
             } else {
                 if ($this->_ctrlSocket->recv(ZMQ::MODE_NOBLOCK)) {
                     exit;
@@ -64,7 +63,7 @@ class OscDispatch
      */
     function digest($oscdata)
     {
-        $address = $data['data']['address'];
+        $address = $oscdata->address;
 
         // @todo fix trailing \0 byte probles in parser where they arise
         $address = str_replace("\0", '', $address);
