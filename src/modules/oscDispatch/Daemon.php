@@ -43,7 +43,7 @@ class OscDispatch
             if ($e) {
                 // do the work
                 $this->_logger->debug(sprintf('Digesting Work'));
-                $this->digest(json_decode($this->_workPoll->recv()));
+                $this->digest(json_decode($this->_workSocket->recv()));
                 $this->_logger->debug(sprintf('Digested Work'));
             } else {
                 if ($this->_ctrlSocket->recv(ZMQ::MODE_NOBLOCK)) {
