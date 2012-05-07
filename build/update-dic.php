@@ -1,9 +1,9 @@
 <?php
 
-// create empty file for bootstrap
-file_put_contents(__DIR__.'/../src/Bootstrap.dic.php', '<?php '.PHP_EOL);
-
 require_once dirname(__FILE__).'/../src/Bootstrap.php';
+
+// remove existing file everything gets made from scratch
+unlink(__DIR__.'/../src/Bootstrap.dic.php');
 
 /**
  * load xml loader and php dumper

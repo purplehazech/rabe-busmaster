@@ -41,9 +41,6 @@
         </exec>
 
         <!-- update Bootstrap.dic.php -->
-	<exec executable="rm">
-	    <arg value="src/Bootstrap.dic.php"/>
-	</exec>
         <exec executable="php" failonerror="true">
             <arg value="./build/update-dic.php"/>
         </exec>
