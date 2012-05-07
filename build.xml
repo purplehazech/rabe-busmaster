@@ -6,16 +6,16 @@
 
     <!-- -->
     <target name="build">
-	<!-- update Autolaoder -->
-        <exec executable="php" failonerror="true" dir="etc/">
+	<!-- update Autoloader -->
+        <exec executable="php" failonerror="true" dir="src/">
             <arg value="../build/update-autoloader.php"/>
-            <arg value="../"/>
-            <arg value="services.xml"/>
+            <arg value="modules/"/>
+            <arg value="Bootloader.map.php"/>
         </exec>
         <exec executable="git" failonerror="false">
             <arg value="commit"/>
             <arg value="-m"/>
-            <arg value="regenerated autoloader"/>
+            <arg value="regenerated autoloader map"/>
             <arg value="etc/services.xml"/>
         </exec>
 
