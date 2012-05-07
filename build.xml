@@ -10,7 +10,7 @@
         <exec executable="php" failonerror="true" dir="src/">
             <arg value="../build/update-autoloader.php"/>
             <arg value="modules/"/>
-            <arg value="Bootloader.map.php"/>
+            <arg value="Bootstrap.map.php"/>
         </exec>
         <exec executable="git" failonerror="false">
             <arg value="commit"/>
