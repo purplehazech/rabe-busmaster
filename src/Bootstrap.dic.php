@@ -73,11 +73,11 @@ class BootstrapDic extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * 
+     * @return Log A Log instance.
      */
     protected function getLogger_ConsoleService()
     {
-        return $this->services['logger.console'] = new \UL('console');
+        return $this->services['logger.console'] = new \Log('console');
     }
 
     /**
@@ -86,11 +86,11 @@ class BootstrapDic extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * 
+     * @return Log A Log instance.
      */
     protected function getLogger_SyslogService()
     {
-        return $this->services['logger.syslog'] = new \UL('syslog');
+        return $this->services['logger.syslog'] = new \Log('syslog');
     }
 
     /**
@@ -185,7 +185,7 @@ class BootstrapDic extends Container
         $this->services['oscreceive.pollctrl'] = $instance = $this->get('oscReceive.pollZmq')->getSocket(7);
 
         $instance->setSockOpt(1, 1);
-        $instance->connect('ipc:///tmp/osc-receive.poll.socket-ctrl');
+        $instance->bind('ipc:///tmp/osc-receive.poll.socket-ctrl');
 
         return $instance;
     }
@@ -216,7 +216,7 @@ class BootstrapDic extends Container
         $this->services['oscreceive.pushsocket.oscdispatch'] = $instance = $this->get('oscReceive.pollZmq')->getSocket(8);
 
         $instance->setSockOpt(1, 1);
-        $instance->connect('ipc:///tmp/osc-dispatch.poll.socket-work');
+        $instance->bind('ipc:///tmp/osc-dispatch.poll.socket-work');
 
         return $instance;
     }
