@@ -24,7 +24,7 @@
       </call>
     </service>
 
-    <service id="oscDispatch.pollCtrl" class="ZMQSocket" factory-service="oscDispatch.pollZmq" factory-method="getSocket">
+    <service id="oscDispatch.poll.socketCtrl" class="ZMQSocket" factory-service="oscDispatch.pollZmq" factory-method="getSocket">
       <!-- ZMQ::SOCKET_PULL -->
       <argument>7</argument>
       <call method="setSockOpt">

@@ -29,7 +29,8 @@ class OscDispatch
         $this->_dispatcher = $dc->get('dispatcher');
         $this->_logger = $dc->get('logger');
         $this->_workPoll = $dc->get('oscDispatch.poll');
-        $this->_ctrlPoll = $dc->get('oscDispatch.pollCtrl');
+        $this->_workSocket = $dc->get('oscDispatch.poll.socketWork');
+        $this->_ctrlSocket = $dc->get('oscDispatch.poll.socketCtrl');
     }
 
     function run() {
@@ -45,7 +46,7 @@ class OscDispatch
                 $this->digest(json_decode($this->_workPoll->recv()));
                 $this->_logger->debug(sprintf('Digested Work'));
             } else {
-                if ($this->_ctrlPoll->recv(ZMQ::MODE_NOBLOCK)) {
+                if ($this->_ctrlSocket->recv(ZMQ::MODE_NOBLOCK)) {
                     exit;
                 }
             }

@@ -35,7 +35,7 @@ class OscReceive
         $this->_logger = $dc->get('logger');
     	$this->_osc = $dc->get('oscReceive.oscParser');
 	$this->_workPoll = $dc->get('oscReceive.pushSocket.oscDispatch');
-        $this->_ctrlPoll = $dc->get('oscReceive.pollCtrl');
+        $this->_ctrlSocket = $dc->get('oscReceive.pollCtrl');
     }
 
     function run() {
@@ -81,7 +81,7 @@ class OscReceive
         return true;
     }
 
-    protected function parse_buffer()
+    protected function parse_buffer($b)
     {
         $this->_osc->setDataString($b);
         $this->_osc->parse();
