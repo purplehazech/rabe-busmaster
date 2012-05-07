@@ -77,7 +77,7 @@ class BootstrapDic extends Container
      */
     protected function getLogger_ConsoleService()
     {
-        return $this->services['logger.console'] = new \Log('console');
+        return $this->services['logger.console'] = call_user_func(array('Log', 'factory'), 'console');
     }
 
     /**
@@ -90,7 +90,7 @@ class BootstrapDic extends Container
      */
     protected function getLogger_SyslogService()
     {
-        return $this->services['logger.syslog'] = new \Log('syslog');
+        return $this->services['logger.syslog'] = call_user_func(array('Log', 'factory'), 'syslog');
     }
 
     /**
