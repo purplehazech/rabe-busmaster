@@ -10,10 +10,10 @@
           <argument type="service" id="logger.syslog"/>
       </call>
     </service>
-    <service id="logger.console" class="Log">
+    <service id="logger.console" class="Log" factory-class="Log" factory-method="factory">
       <argument>console</argument>
     </service>
-    <service id="logger.syslog" class="Log">
+    <service id="logger.syslog" class="Log" factory-class="Log" factory-method="factory">
       <argument>syslog</argument>
     </service>
   </services>
