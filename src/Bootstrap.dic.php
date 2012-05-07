@@ -59,7 +59,12 @@ class BootstrapDic extends Container
      */
     protected function getLoggerService()
     {
-        return $this->services['logger'] = call_user_func(array('Log', 'factory'), 'file', '/var/log/busmaster.log', 'BUSMASTER');
+        $this->services['logger'] = $instance = call_user_func(array('Log', 'factory'), 'composite');
+
+        $instance->addChild($this->get('logger.console'));
+        $instance->addChild($this->get('logger.syslog'));
+
+        return $instance;
     }
 
     /**
