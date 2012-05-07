@@ -14,7 +14,7 @@
         <argument>1</argument>
       </call>
       <call method="connect">
-        <argument>ipc:///tmp/osc-dispatch.poll.socket-work</argument>
+        <argument>tpc://0.0.0.0:5555</argument>
       </call>
     </service>
 
