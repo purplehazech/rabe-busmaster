@@ -42,7 +42,7 @@ foreach ($files AS $l => $f) {
 
 $str = PHP_EOL;
 foreach ($map AS $c => $f) {
-	$str .= sprintf("\$map['%s'] = '%s';".PHP_EOL, $c, $f->getPathname());
+	$str .= sprintf("\$map['%s'] = __DIR__.'%s';".PHP_EOL, $c, $f->getPathname());
 }
 
 // save away
