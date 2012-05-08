@@ -55,6 +55,17 @@
     <!--
     -->
     <target name="test">
+        <exec executable="phpcs">
+	    <arg value="-s"/> <!-- Show sniff codes in all reports -->
+	    <arg value="--standard=PEAR"/>
+	    <arg value="--ignore=README.md"/>
+	    <arg value="--report=checkstyle"/>
+	    <arg value="--report-file=build/checkstyle.xml"/>
+	    <!-- dirs to scan -->
+	    <arg value="src/"/>
+	    <arg value="bin/"/>
+	    <arg value="test/"/>
+	</exec>
     </target>
 
     <!--
