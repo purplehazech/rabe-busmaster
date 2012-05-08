@@ -22,7 +22,7 @@
         <!-- update services.xml -->
         <exec executable="php" failonerror="true" dir="etc/">
             <arg value="../build/update-dic-service.php"/>
-            <arg value="../"/>
+            <arg value="../src/"/>
             <arg value="services.xml"/>
         </exec>
         <exec executable="xmllint" failonerror="true" output="etc/services.xml.format" logError="true">
