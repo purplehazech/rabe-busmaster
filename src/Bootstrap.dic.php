@@ -216,7 +216,7 @@ class BootstrapDic extends Container
         $this->services['oscreceive.pushsocket.oscdispatch'] = $instance = $this->get('oscReceive.pollZmq')->getSocket(8);
 
         $instance->setSockOpt(1, 1);
-        $instance->connect('tpc://0.0.0.0:5555');
+        $instance->connect('tcp://0.0.0.0:5555');
 
         return $instance;
     }
