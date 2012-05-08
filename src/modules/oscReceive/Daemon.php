@@ -1,8 +1,12 @@
 <?php
 /**
  * OSC Receiving Agent
+ * 
+ * based on socket_* methods :(
  *
  * PHP Version 5
+ *
+ * @todo rewrite to stream_socket stuff (socket_* & System_Daemon do ! play nicely)
  *
  * @category   PoscHP
  * @package    Server
@@ -28,19 +32,41 @@ require_once dirname(__FILE__).'/../Bootstrap.php';
  */
 require_once 'Osc/Parse.php';
 
+/**
+ * osc receiver
+ *
+ * @category   PoscHP
+ * @package    Server
+ * @subpackage OSC
+ * @author     Lucas S. Bickel <hairmare@purplehaze.ch>
+ * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
+ * @link       http://osc.purplehaze.ch
+ */
 class OscReceive
 {
-    function __construct($dc) {
+    /**
+     * constructor
+     *
+     * @param Symfony\Component\DependencyInjection\ContainerInterface $dc DIC
+     */
+    function __construct($dc)
+    {
         $this->_dispatcher = $dc->get('dispatcher');
         $this->_logger = $dc->get('logger');
-    	$this->_osc = $dc->get('oscReceive.oscParser');
-	$this->_workPoll = $dc->get('oscReceive.pushSocket.oscDispatch');
+            $this->_osc = $dc->get('oscReceive.oscParser');
+        $this->_workPoll = $dc->get('oscReceive.pushSocket.oscDispatch');
         $this->_ctrlSocket = $dc->get('oscReceive.pollCtrl');
     }
 
-    function run() {
+    /**
+     * daemonize & socketize
+     *
+     * @return void
+     */
+    function run()
+    {
         $this->_dispatcher->dispatch('/daemon/start');
-        $this->start_socket();
+        $this->startSocket();
     }
 
 
@@ -49,7 +75,7 @@ class OscReceive
      *
      * @return void
      */
-    function start_socket()
+    function startSocket()
     {
         //$workload = $job->workload();
     
@@ -67,12 +93,12 @@ class OscReceive
             if (socket_recvfrom($socket, $b, 9999, 0, $f, $p)) {
     
                 // parse incoming buffer
-    		$oscdata = $this->parse_buffer($b);
+                $oscdata = $this->parseBuffer($b);
 
                 // digest results in background
-		$this->_workPoll->send(json_encode($oscdata));
+                $this->_workPoll->send(json_encode($oscdata));
 
-		// log info 
+                // log info 
                 $this->_logger->debug(__CLASS__." digested an OSC message");
             }
             usleep(500000); // 0.5 secs
@@ -81,7 +107,14 @@ class OscReceive
         return true;
     }
 
-    protected function parse_buffer($b)
+    /**
+     * parse osc
+     *
+     * @param Object $b raw osc buffer
+     *
+     * @return Array parsed osc data
+     */
+    protected function parseBuffer($b)
     {
         $this->_osc->setDataString($b);
         $this->_osc->parse();

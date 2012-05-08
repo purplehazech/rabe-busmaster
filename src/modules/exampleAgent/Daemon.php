@@ -4,7 +4,10 @@
  *
  * PHP Version 5
  *
- * @category   PoscHP
+ * @todo fix this thing so daemonizing & also as a plus getopt happen in bootstrap
+ * @todo also wouldn't it be nice not to 'while(true)'?
+ *
+ * @category   Busmaster
  * @package    Server
  * @subpackage Socket
  * @author     Lucas S. Bickel <hairmare@purplehaze.ch>
@@ -47,6 +50,11 @@ class ExampleAgent
     /**
      * constructor
      *
+     * in most modules this method will load alot more services via the 
+     * dependency injection container passed from bootstrap. as of yet
+     * it is undecided where that all the module documentation will
+     * really live.
+     *
      * @param Symfony\Component\DependencyInjection\ContainerInterface $dc DIC
      */
     function __construct($dc)
@@ -57,8 +65,15 @@ class ExampleAgent
 
     /**
      * main daemon method
+     *
+     * quite literally this is the while(true) part of the whole php
+     * based daemon stuff. Be sure to dispatch a /daemon/start msg
+     * and you're safe to go. 
+     *
+     * @return true
      */
-    function run() {
+    function run()
+    {
         // log that we are running
         $this->_logger->log(sprintf('Starting %s daemon', __CLASS__));
 

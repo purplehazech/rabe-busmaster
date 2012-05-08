@@ -62,8 +62,8 @@ $dc = new BootstrapDic;
 
 // everything below here (autoloading included) needs automating
 
-// @todo add signal handling events (as soon as i habe automated di container building)
-// event handling is in the daemon module
+// @todo add signal handling events 
+// event handling belongs in the daemon module
 
 // logging is a module of its own right
 require_once 'Log.php';

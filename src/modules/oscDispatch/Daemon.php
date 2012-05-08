@@ -8,7 +8,7 @@
  * @package    Server
  * @subpackage OSC
  * @author     Lucas S. Bickel <hairmare@purplehaze.ch>
- * @copyright  2011 Lucas S. Bickel 2011 - Alle Rechte vorbehalten
+ * @copyright  2012 Lucas S. Bickel 2012 - Alle Rechte vorbehalten
  * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
  * @link       http://osc.purplehaze.ch
  */
@@ -23,9 +23,25 @@ define('DAEMON_NAME', basename(__DIR__));
  */
 require_once dirname(__FILE__).'/../Bootstrap.php';
 
+/**
+ * osc dispatcher
+ *
+ * @category   PoscHP
+ * @package    Server
+ * @subpackage OSC
+ * @author     Lucas S. Bickel <hairmare@purplehaze.ch>
+ * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
+ * @link       http://osc.purplehaze.ch
+ */
 class OscDispatch
 {
-    function __construct($dc) {
+    /**
+     * constructor
+     *
+     * @param Symfony\Component\DependencyInjection\ContainerInterface $dc DIC
+     */
+    function __construct($dc)
+    {
         $this->_dispatcher = $dc->get('dispatcher');
         $this->_logger = $dc->get('logger');
         $this->_workPoll = $dc->get('oscDispatch.poll');
@@ -33,12 +49,18 @@ class OscDispatch
         $this->_ctrlSocket = $dc->get('oscDispatch.poll.socketCtrl');
     }
 
-    function run() {
+    /**
+     * main daemon method
+     *
+     * @return void
+     */
+    function run()
+    {
         $this->_dispatcher->dispatch('/daemon/start');
         $this->_logger->log(sprintf('polling worker queue'));
 
         $r = $w = array();
-        while(true) {
+        while (true) {
             $e = $this->_workPoll->poll($r, $w, 5000);
             if ($e) {
                 // do the work
@@ -55,7 +77,8 @@ class OscDispatch
     /**
      * digest and dispatch a package
      *
-     * @param Object $oscdata
+     * @param Object $oscdata pre parsed and unpacked data
+     *
      * @return void
      *
      * @todo this will need to handle the osc address patterns as per spec
