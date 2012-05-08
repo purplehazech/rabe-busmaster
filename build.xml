@@ -65,7 +65,14 @@
 	    <arg value="src/"/>
 	    <arg value="bin/"/>
 	    <arg value="test/"/>
-	</exec>
+        </exec>
+        <exec executable="phpmd">
+            <arg value="--report-file=build/pmd.xml"/>
+            <!-- dirs to scan -->
+            <arg value="src,bin,test"/>
+            <arg value="xml"/>
+            <arg value="codesize,design,naming,unusedcode"/>
+        </exec>
     </target>
 
     <!--
