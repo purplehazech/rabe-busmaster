@@ -10,7 +10,7 @@
  * @author     Lucas S. Bickel <hairmare@purplehaze.ch>
  * @copyright  2012 Lucas S. Bickel 2012 - Alle Rechte vorbehalten
  * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
- * @link       http://osc.purplehaze.ch
+ * @link       http://purplehaze.ch
  */
 
 /**
@@ -33,16 +33,31 @@ require_once dirname(__FILE__).'/../Bootstrap.php';
 
 /**
  * Agent Class
+ *
+ * @category   PoscHP
+ * @package    Server
+ * @subpackage Socket
+ * @author     Lucas S. Bickel <hairmare@purplehaze.ch>
+ * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
+ * @link       http://purplehaze.ch
  */
+class ExampleAgent
+{
 
-class ExampleAgent {
-
-    function __construct($dc) {
-
+    /**
+     * constructor
+     *
+     * @param Symfony\Component\DependencyInjection\ContainerInterface $dc DIC
+     */
+    function __construct($dc)
+    {
         $this->_dispatcher = $dc->get('dispatcher');
         $this->_logger = $dc->get('logger');
     }
 
+    /**
+     * main daemon method
+     */
     function run() {
         // log that we are running
         $this->_logger->log(sprintf('Starting %s daemon', __CLASS__));
