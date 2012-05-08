@@ -44,9 +44,9 @@ class OscDispatch
     {
         $this->_dispatcher = $dc->get('dispatcher');
         $this->_logger = $dc->get('logger');
-        $this->_workPoll = $dc->get('oscDispatch.poll');
-        $this->_workSocket = $dc->get('oscDispatch.poll.socketWork');
-        $this->_ctrlSocket = $dc->get('oscDispatch.poll.socketCtrl');
+        $this->_workPoll = $dc->get('oscDispatchPoll');
+        $this->_workSocket = $dc->get('oscDispatchPollSocketWork');
+        $this->_ctrlSocket = $dc->get('oscDispatchPollSocketCtrl');
     }
 
     /**
