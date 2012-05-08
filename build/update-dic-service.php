@@ -6,11 +6,11 @@ foreach ($xml->imports->import AS $import) {
         $dics[(string)$import['resource']] = true;
 }
 
-// find all dic.xml files
+// find all services.xml files
 $d = new RecursiveDirectoryIterator($argv[1]);
 $i = new RecursiveIteratorIterator($d);
 foreach ($i AS $v) {
-        if ($v->getFilename() != 'dic.xml') {
+        if ($v->getFilename() != 'services.xml') {
                 continue;
         }
         if (!array_key_exists((string) $v, $dics)) {
