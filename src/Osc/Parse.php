@@ -387,30 +387,30 @@ class Osc_Parse
     private function _multiByteShift($count, $operator = 'sprintf02')
     {
         if ($operator == 'array') {
-            $v = array();
+            $var = array();
         } else {
-            $v = '';
+            $var = '';
         }
         for ($i = 0; $i < $count; $i++) {
             switch ($operator) {
             case "concat":
 
-                $v .= array_shift($this->_data);
+                $var .= array_shift($this->_data);
                 break;
 
             case "array":
 
-                $v[] = array_shift($this->_data);
+                $var[] = array_shift($this->_data);
                 break;
 
             case "sprintf02":
             default:
-                $v .= sprintf("%02s", array_shift($this->_data));
+                $var .= sprintf("%02s", array_shift($this->_data));
                 break;
             }
             $this->_bidx++;
         }
-        return $v;
+        return $var;
     }
 
     /**
@@ -467,7 +467,9 @@ class Osc_Parse
     {
         $state = $this->_state;
 
-        $bundlets = $this->_multiByteShift(8, 'array');
+        // remove bundle timestamp
+        $this->_multiByteShift(8, 'array');
+        // parse timestamp in first message
         $this->_parseTimestamp();
 
         while (!empty($this->_data)) {
@@ -568,58 +570,58 @@ class Osc_Parse
             switch(array_shift($this->_schema)) {
             case "i":
 
-                $v = $this->_multiByteShift(4);
+                $var = $this->_multiByteShift(4);
 
                 if ($this->_debug) {
-                    printf("Got Int %s = %s\n", $v, hexdec($v));
+                    printf("Got Int %s = %s\n", $var, hexdec($var));
                 }
-                $this->_appendStore(hexdec($v));
+                $this->_appendStore(hexdec($var));
                 break 2;
 
             case "h":
 
-                $v = '';
+                $var = '';
                 for ($i = 0; $i < 8; $i++) {
-                    $v .= sprintf("%02s", array_shift($this->_data));
+                    $var .= sprintf("%02s", array_shift($this->_data));
                     $this->_bidx++;
                 }
                 if ($this->_debug) {
-                    printf("Got LargeInt %s = %s\n", $v, hexdec($v));
+                    printf("Got LargeInt %s = %s\n", $var, hexdec($var));
                 }
-                $this->_appendStore(hexdec($v));
+                $this->_appendStore(hexdec($var));
                 break 2;
 
             case "f":
-                $v = '';
+                $var = '';
 
                 for ($i = 0; $i < 4; $i++) {
-                     $v .= sprintf("%02s", array_shift($this->_data));
+                     $var .= sprintf("%02s", array_shift($this->_data));
                      $this->_bidx++;
                 }
-                $r = Osc_HexFloat::hexTo32Float($v);
+                $res = Osc_HexFloat::hexTo32Float($var);
                 if ($this->_debug) {
-                    printf("Got Float %s = %s\n", $v, var_export($r, true));
+                    printf("Got Float %s = %s\n", $var, var_export($res, true));
                 }
                 trigger_error(
                     "Float support is broken, returning 0", 
                     E_USER_WARNING
                 );
-                $r = 0;
-                $this->_appendStore($r);
+                $res = 0;
+                $this->_appendStore($res);
                 break 2;
 
             case "d":
 
-                $r = Osc_HexFloat::hexTo64Float($this->_multiByteShift(8));
+                $res = Osc_HexFloat::hexTo64Float($this->_multiByteShift(8));
                 if ($this->_debug) {
-                    printf("Got Float %s = %s\n", $v, var_export($r, true));
+                    printf("Got Float %s = %s\n", $var, var_export($res, true));
                 }
                 trigger_error(
                     "Float support is broken, returning 0", 
                     E_USER_WARNING
                 );
-                $r = 0;
-                $this->_appendStore($r);
+                $res = 0;
+                $this->_appendStore($res);
                 break 2;
 
             case "S":
@@ -650,12 +652,12 @@ class Osc_Parse
                 $state = Osc_Parse::STATE_DATA_CHAR;
                 break 2;
             case "m":
-                $v = '';
+                $var = '';
                 for ($i = 0; $i < 4; $i++) {
-                    $v .= sprintf("%02s", array_shift($this->_data));
+                    $var .= sprintf("%02s", array_shift($this->_data));
                     $this->_bidx++;
                 }
-                $this->_appendStore($v);
+                $this->_appendStore($var);
                 break 2;
             case "T":
                 $this->_appendStore(true);

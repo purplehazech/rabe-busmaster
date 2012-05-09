@@ -36,10 +36,10 @@ class Osc_HexFloat
      */
     function hexTo32Float($strHex)
     {
-        $v = hexdec($strHex);
-        $x = ($v & ((1 << 23) - 1)) + (1 << 23) * ($v >> 31 | 1);
-        $exp = ($v >> 23 & 0xFF) - 127;
-        return $x * pow(2, $exp - 23);
+        $var = hexdec($strHex);
+        $xval = ($var & ((1 << 23) - 1)) + (1 << 23) * ($var >> 31 | 1);
+        $exp = ($var >> 23 & 0xFF) - 127;
+        return $xval * pow(2, $exp - 23);
     }
     
     /**
@@ -51,9 +51,9 @@ class Osc_HexFloat
      */
     function hexTo64Float($strHex)
     {
-        $v = hexdec($strHex);
-        $x = ($v & ((1 << 52) - 1)) + (1 << 52) * ($v >> 63 | 1);
-        $exp = ($v >> 52 & 0xFF) - 1023;
-        return $x * pow(2, $exp - 52);
+        $var = hexdec($strHex);
+        $xval =w ($var & ((1 << 52) - 1)) + (1 << 52) * ($var >> 63 | 1);
+        $exp = ($var >> 52 & 0xFF) - 1023;
+        return $xval * pow(2, $exp - 52);
     }
 }
