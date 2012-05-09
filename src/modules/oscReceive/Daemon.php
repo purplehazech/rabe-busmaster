@@ -53,9 +53,9 @@ class OscReceive
     {
         $this->_dispatcher = $dic->get('dispatcher');
         $this->_logger = $dic->get('logger');
-        $this->_osc = $dic->get('oscReceive.oscParser');
-        $this->_workPoll = $dic->get('oscReceive.pushSocket.oscDispatch');
-        $this->_ctrlSocket = $dic->get('oscReceive.pollCtrl');
+        $this->_osc = $dic->get('oscReceiveOscParser');
+        $this->_workPoll = $dic->get('oscReceivePushSocketOscDispatch');
+        $this->_ctrlSocket = $dic->get('oscReceivePollCtrl');
     }
 
     /**

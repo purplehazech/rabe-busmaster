@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
   <services>
-    <service id="oscReceive.oscParser" class="Osc_Parse"/>
+    <service id="oscReceiveOscParser" class="Osc_Parse"/>
 
-    <service id="oscReceive.pollZmq" class="ZMQContext"/>
+    <service id="oscReceivePollZmq" class="ZMQContext"/>
 
-    <service id="oscReceive.pushSocket.oscDispatch" class="ZMQSocket" factory-service="oscReceive.pollZmq" factory-method="getSocket">
+    <service id="oscReceivePushSocketOscDispatch" class="ZMQSocket" factory-service="oscReceivePollZmq" factory-method="getSocket">
       <!-- ZMQ::SOCKET_PUSH -->
       <argument>8</argument>
       <call method="setSockOpt">
@@ -18,7 +18,7 @@
       </call>
     </service>
 
-    <service id="oscReceive.pollCtrl" class="ZMQSocket" factory-service="oscReceive.pollZmq" factory-method="getSocket">
+    <service id="oscReceivePollCtrl" class="ZMQSocket" factory-service="oscReceivePollZmq" factory-method="getSocket">
       <!-- ZMQ::SOCKET_PULL -->
       <argument>7</argument>
       <call method="setSockOpt">
