@@ -63,5 +63,5 @@ $dp = new Symfony\Component\DependencyInjection\Dumper\PhpDumper($dc);
 $ld->load('services.xml');
 file_put_contents(
     __DIR__.'/../src/Bootstrap.dic.php',
-    str_replace('<?php', DIC_BOILERPLATE, $dp->dump(array('class' => 'BootstrapDic'))
+    str_replace('<?php', DIC_BOILERPLATE, $dp->dump(array('class' => 'BootstrapDic')))
 );
