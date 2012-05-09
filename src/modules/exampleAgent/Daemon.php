@@ -54,7 +54,7 @@ class ExampleAgent
      * it is undecided where that all the module documentation will
      * really live.
      *
-     * @param Symfony\Component\DependencyInjection\ContainerInterface $dc DIC
+     * @param Symfony\Component\DependencyInjection\ContainerInterface $dic DIC
      */
     function __construct($dic)
     {

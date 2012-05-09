@@ -36,20 +36,24 @@ class Osc_ParseTest extends PHPUnit_Framework_TestCase
     /**
      * @var Osc_Parse
      */
-    protected $_object;
+    protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     *
+     * @return void
      */
     protected function setUp()
     {
-        $this->_object = new Osc_Parse;
+        $this->object = new Osc_Parse;
     }
 
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
+     *
+     * @return void
      */
     protected function tearDown()
     {
@@ -57,6 +61,10 @@ class Osc_ParseTest extends PHPUnit_Framework_TestCase
 
     /**
      * get a buffer from the test corpus
+     *
+     * @param String $name name of the buffer to fetch
+     *
+     * @return String
      */
     protected function getBuffer($name)
     {
@@ -66,69 +74,79 @@ class Osc_ParseTest extends PHPUnit_Framework_TestCase
 
     /**
      * test initial pre state engine buffer translation
+     *
+     * @return void
      */
     public function testSetDataString()
     {
         // minimalistic test buffer made with lib/OSC.php
         $buf = $this->getBuffer('empty_oscbundle');
 
-        $this->assertFalse($this->_object->hasData());
+        $this->assertFalse($this->object->hasData());
 
-        $this->_object->setDataString($buf);
+        $this->object->setDataString($buf);
 
-        $this->assertTrue($this->_object->hasData());
+        $this->assertTrue($this->object->hasData());
     }
 
     /**
      * same test as before with "raw" data
+     *
+     * @return void
      */
     public function testSetData()
     {
         $abuf = array("2f","0","0","0","2c","0","0","0");
 
-        $this->assertFalse($this->_object->hasData());
+        $this->assertFalse($this->object->hasData());
 
-        $this->_object->setData($abuf);
+        $this->object->setData($abuf);
 
-        $this->assertTrue($this->_object->hasData());
+        $this->assertTrue($this->object->hasData());
     }
 
     /**
      * test debug mode setter
+     *
+     * @return void
      */
     public function testSetDebug()
     {
-        $this->assertTrue($this->_object->setDebug(true));
-        $this->assertFalse($this->_object->setDebug(false));
+        $this->assertTrue($this->object->setDebug(true));
+        $this->assertFalse($this->object->setDebug(false));
 
         // test toggle mode
-        $this->assertTrue($this->_object->setDebug());
-        $this->assertFalse($this->_object->setDebug());
-        $this->assertTrue($this->_object->setDebug());
+        $this->assertTrue($this->object->setDebug());
+        $this->assertFalse($this->object->setDebug());
+        $this->assertTrue($this->object->setDebug());
     }
 
     /**
      * test for failing to fetch result
      *
      * @expectedException PHPUnit_Framework_Error_Warning
+     *
+     * @return void
      */
     public function testGetResult()
     {
-        $this->_object->getResult();
+        $this->object->getResult();
     }
 
     /**
      * test parsing the empty package from the corpus
+     *
+     * @return void
      */
     public function testParse()
     {
         $buf = $this->getBuffer('empty_oscbundle');
 
-        $this->_object->setDataString($buf);
+        $this->object->setDataString($buf);
 
-        $this->_object->parse();
+        $this->object->parse();
 
-        $result = $this->_object->getResult();
+        $result = $this->object->getResult();
 
         $this->assertEquals($result['address'], "/");
         $this->assertEquals($result['data'], array());

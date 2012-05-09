@@ -83,7 +83,7 @@ class OscReceive
         $ipaddr = $conf['osc']['listen_host'];
         $port = $conf['osc']['listen_port'];
 
-        $socket = $this->bindNewSocket($ipaddr, $port);
+        $socket = $this->_bindNewSocket($ipaddr, $port);
     
         while (true) {
             if (socket_recvfrom($socket, $buffer, 9999, 0, $name)) {
@@ -126,13 +126,25 @@ class OscReceive
      *
      * @return void
      */
-    private function bindNewSocket($ipaddr, $port)
+    private function _bindNewSocket($ipaddr, $port)
     {
-        $this->_logger->log(sprintf('creating socket on %s:%s', $ipaddr, $port));
+        $this->_logger->log(
+            sprintf(
+                'creating socket on %s:%s',
+                $ipaddr,
+                $port
+            )
+        );
     
         $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         if (!$socket) {
-            $this->_logger->error(sprintf('could not create socket %s:%s', $ipaddr, $port));
+            $this->_logger->error(
+                sprintf(
+                    'could not create socket %s:%s',
+                    $ipaddr,
+                    $port
+                )
+            );
             throw new RuntimeException("could not create socket");
         }
 
@@ -140,11 +152,23 @@ class OscReceive
 
         $recv_socket = socket_bind($socket, $ipaddr, $port);
         if (!$recv_socket) {
-            $this->_logger->error(sprintf('could not bind socket %s:%s', $ipaddr, $port));
+            $this->_logger->error(
+                sprintf(
+                    'could not bind socket %s:%s',
+                    $ipaddr,
+                    $port
+                )
+            );
             throw new RuntimeException("could not bind socket");
         }
 
-        $this->_logger->log(sprintf('create and binded socket %s:%s', $ipaddr, $port));
+        $this->_logger->log(
+            sprintf(
+                'create and binded socket %s:%s', 
+                $ipaddr, 
+                $port
+            )
+        );
 
         return $socket;
     }
