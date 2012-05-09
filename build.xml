@@ -66,7 +66,7 @@
 	    <arg value="bin/"/>
 	    <arg value="test/"/>
         </exec>
-        <exec executable="phpmd" failonerror="true">
+        <exec executable="phpmd">
             <!-- dirs to scan -->
             <arg value="src,bin,test"/>
             <arg value="xml"/>
