@@ -55,7 +55,7 @@
     <!--
     -->
     <target name="test">
-        <exec executable="phpcs" failonerror="true">
+        <exec executable="phpcs">
 	    <arg value="-s"/> <!-- Show sniff codes in all reports -->
 	    <arg value="--standard=PEAR"/>
 	    <arg value="--ignore=README.md"/>
