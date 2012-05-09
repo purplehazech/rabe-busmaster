@@ -35,33 +35,64 @@ define('DIC_BOILERPLATE', <<<EOD
  *
  * @category   Busmaster
  * @package    Server
- * @subpackage CLI
+ * @subpackage Bootstrap
  * @author     Lucas S. Bickel <hairmare@purplehaze.ch>
  * @copyright  2012 Lucas S. Bickel 2011 - Alle Rechte vorbehalten
  * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
- * @link       http://osc.purplehaze.ch
+ * @link       http://purplehaze.ch
  *
  * @SuppressWarnings(PHPMD)
  */
 
 EOD
 );
+define('DIC_CLASSPART', <<<EOD
+ * by the Symfony Dependency Injection Component.
+ *
+ * PHP Version 5
+ *
+ * @category   Busmaster
+ * @package    Server
+ * @subpackage Bootstrap
+ * @author     Lucas S. Bickel <hairmare@purplehaze.ch>
+ * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
+ * @link       http://purplehaze.ch
+ *
+ * @SuppressWarnings(PHPMD)
+EOD
+);
 
 /**
  * create some tools
  */
-$dc = new Symfony\Component\DependencyInjection\ContainerBuilder;
-$ld = new Symfony\Component\DependencyInjection\Loader\XmlFileLoader(
-    $dc,
+$dic = new Symfony\Component\DependencyInjection\ContainerBuilder;
+$load = new Symfony\Component\DependencyInjection\Loader\XmlFileLoader(
+    $dic,
     new Symfony\Component\Config\FileLocator(__DIR__.'/../etc')
 );
-$dp = new Symfony\Component\DependencyInjection\Dumper\PhpDumper($dc);
+$dump = new Symfony\Component\DependencyInjection\Dumper\PhpDumper($dic);
+
+$search = $replace = array();
+
+$search[] = '<?php';
+$replace[] = DIC_BOILERPLATE;
+
+$search[] = ' * by the Symfony Dependency Injection Component.';
+$replace[] = DIC_CLASSPART;
 
 /*
  * load from xml and recreate php file
  */
-$ld->load('services.xml');
+$load->load('services.xml');
 file_put_contents(
     __DIR__.'/../src/Bootstrap.dic.php',
-    str_replace('<?php', DIC_BOILERPLATE, $dp->dump(array('class' => 'BootstrapDic')))
+    str_replace(
+        $search,
+        $replace,
+        $dump->dump(
+            array(
+                'class' => 'BootstrapDic'
+            )
+        )
+    )
 );
