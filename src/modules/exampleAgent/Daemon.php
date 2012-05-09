@@ -46,7 +46,6 @@ require_once dirname(__FILE__).'/../Bootstrap.php';
  */
 class ExampleAgent
 {
-
     /**
      * constructor
      *
@@ -57,10 +56,10 @@ class ExampleAgent
      *
      * @param Symfony\Component\DependencyInjection\ContainerInterface $dc DIC
      */
-    function __construct($dc)
+    function __construct($dic)
     {
-        $this->_dispatcher = $dc->get('dispatcher');
-        $this->_logger = $dc->get('logger');
+        $this->_dispatcher = $dic->get('dispatcher');
+        $this->_logger = $dic->get('logger');
     }
 
     /**

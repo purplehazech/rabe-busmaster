@@ -49,13 +49,13 @@ class OscReceive
      *
      * @param Symfony\Component\DependencyInjection\ContainerInterface $dc DIC
      */
-    function __construct($dc)
+    Function __construct($dic)
     {
-        $this->_dispatcher = $dc->get('dispatcher');
-        $this->_logger = $dc->get('logger');
-            $this->_osc = $dc->get('oscReceive.oscParser');
-        $this->_workPoll = $dc->get('oscReceive.pushSocket.oscDispatch');
-        $this->_ctrlSocket = $dc->get('oscReceive.pollCtrl');
+        $this->_dispatcher = $dic->get('dispatcher');
+        $this->_logger = $dic->get('logger');
+        $this->_osc = $dic->get('oscReceive.oscParser');
+        $this->_workPoll = $dic->get('oscReceive.pushSocket.oscDispatch');
+        $this->_ctrlSocket = $dic->get('oscReceive.pollCtrl');
     }
 
     /**
@@ -77,23 +77,20 @@ class OscReceive
      */
     function startSocket()
     {
-        //$workload = $job->workload();
-    
+        // @todo fixme into something generic
         $conf = parse_ini_file('/etc/busmaster/busmaster.ini', true);
     
-        $ip = $conf['osc']['listen_host'];
+        $ipadr = $conf['osc']['listen_host'];
         $port = $conf['osc']['listen_port'];
 
-        $this->_logger->log(sprintf('Creating socket on %s:%s', $ip, $port));
-    
-        $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-        $r = socket_bind($socket, $ip, $port);
+        $socket = $this->bindNewSocket($ipaddr, $port);
     
         while (true) {
-            if (socket_recvfrom($socket, $b, 9999, 0, $f, $p)) {
+            if (socket_recvfrom($socket, $buffer, 9999, 0, $name)) {
+                $this->_socketName = $name;
     
                 // parse incoming buffer
-                $oscdata = $this->parseBuffer($b);
+                $oscdata = $this->parseBuffer($buffer);
 
                 // digest results in background
                 $this->_workPoll->send(json_encode($oscdata));
@@ -119,6 +116,37 @@ class OscReceive
         $this->_osc->setDataString($b);
         $this->_osc->parse();
         return $this->_osc->getResult();
+    }
+
+    /**
+     * get a socket connection
+     * 
+     * @param String  $ipaddr ip to bind to
+     * @param Integer $port   port to bind
+     *
+     * @return void
+     */
+    private function bindNewSocket($ipaddr, $port)
+    {
+        $this->_logger->log(sprintf('creating socket on %s:%s', $ipadr, $port));
+    
+        $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+        if (!$socket) {
+            $this->_logger->error(sprintf('could not create socket %s:%s', $ipadr, $port));
+            throw new RuntimeException("could not create socket");
+        }
+
+        $this->_logger->log(sprintf('binding socket on %s:%s', $ipadr, $port));
+
+        $recv_socket = socket_bind($socket, $ip, $port);
+        if (!$recv_socket) {
+            $this->_logger->error(sprintf('could not bind socket %s:%s', $ipadr, $port));
+            throw new RuntimeException("could not bind socket");
+        }
+
+        $this->_logger->log(sprintf('create and binded socket %s:%s', $ipadr, $port));
+
+        return $socket;
     }
 }
 

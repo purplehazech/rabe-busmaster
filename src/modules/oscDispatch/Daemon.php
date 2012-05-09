@@ -38,15 +38,15 @@ class OscDispatch
     /**
      * constructor
      *
-     * @param Symfony\Component\DependencyInjection\ContainerInterface $dc DIC
+     * @param Symfony\Component\DependencyInjection\ContainerInterface $dic DIC
      */
-    function __construct($dc)
+    function __construct($dic)
     {
-        $this->_dispatcher = $dc->get('dispatcher');
-        $this->_logger = $dc->get('logger');
-        $this->_workPoll = $dc->get('oscDispatchPoll');
-        $this->_workSocket = $dc->get('oscDispatchPollSocketWork');
-        $this->_ctrlSocket = $dc->get('oscDispatchPollSocketCtrl');
+        $this->_dispatcher = $dic->get('dispatcher');
+        $this->_logger = $dic->get('logger');
+        $this->_workPoll = $dic->get('oscDispatchPoll');
+        $this->_workSocket = $dic->get('oscDispatchPollSocketWork');
+        $this->_ctrlSocket = $dic->get('oscDispatchPollSocketCtrl');
     }
 
     /**
@@ -59,16 +59,17 @@ class OscDispatch
         $this->_dispatcher->dispatch('/daemon/start');
         $this->_logger->log(sprintf('polling worker queue'));
 
-        $r = $w = array();
-        while (true) {
-            $e = $this->_workPoll->poll($r, $w, 5000);
-            if ($e) {
+        $read = $wrwite = array();
+        $done = false;
+        while (!$done) {
+            $event = $this->_workPoll->poll($read, $write, 5000);
+            if ($event) {
                 // do the work
                 $this->_logger->debug(sprintf('digesting OSC datagram'));
                 $this->digest(json_decode($this->_workSocket->recv()));
             } else {
                 if ($this->_ctrlSocket->recv(ZMQ::MODE_NOBLOCK)) {
-                    exit;
+                    $done = true;
                 }
             }
         }
