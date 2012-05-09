@@ -52,7 +52,7 @@ class Osc_HexFloat
     function hexTo64Float($strHex)
     {
         $var = hexdec($strHex);
-        $xval =w ($var & ((1 << 52) - 1)) + (1 << 52) * ($var >> 63 | 1);
+        $xval = ($var & ((1 << 52) - 1)) + (1 << 52) * ($var >> 63 | 1);
         $exp = ($var >> 52 & 0xFF) - 1023;
         return $xval * pow(2, $exp - 52);
     }
