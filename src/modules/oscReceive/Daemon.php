@@ -47,7 +47,7 @@ class OscReceive
     /**
      * constructor
      *
-     * @param Symfony\Component\DependencyInjection\ContainerInterface $dc DIC
+     * @param Symfony\Component\DependencyInjection\ContainerInterface $dic DIC
      */
     Function __construct($dic)
     {
@@ -80,7 +80,7 @@ class OscReceive
         // @todo fixme into something generic
         $conf = parse_ini_file('/etc/busmaster/busmaster.ini', true);
     
-        $ipadr = $conf['osc']['listen_host'];
+        $ipaddr = $conf['osc']['listen_host'];
         $port = $conf['osc']['listen_port'];
 
         $socket = $this->bindNewSocket($ipaddr, $port);
@@ -107,13 +107,13 @@ class OscReceive
     /**
      * parse osc
      *
-     * @param Object $b raw osc buffer
+     * @param Object $buffer raw osc buffer
      *
      * @return Array parsed osc data
      */
-    protected function parseBuffer($b)
+    protected function parseBuffer($buffer)
     {
-        $this->_osc->setDataString($b);
+        $this->_osc->setDataString($buffer);
         $this->_osc->parse();
         return $this->_osc->getResult();
     }
@@ -128,23 +128,23 @@ class OscReceive
      */
     private function bindNewSocket($ipaddr, $port)
     {
-        $this->_logger->log(sprintf('creating socket on %s:%s', $ipadr, $port));
+        $this->_logger->log(sprintf('creating socket on %s:%s', $ipaddr, $port));
     
         $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         if (!$socket) {
-            $this->_logger->error(sprintf('could not create socket %s:%s', $ipadr, $port));
+            $this->_logger->error(sprintf('could not create socket %s:%s', $ipaddr, $port));
             throw new RuntimeException("could not create socket");
         }
 
-        $this->_logger->log(sprintf('binding socket on %s:%s', $ipadr, $port));
+        $this->_logger->log(sprintf('binding socket on %s:%s', $ipaddr, $port));
 
-        $recv_socket = socket_bind($socket, $ip, $port);
+        $recv_socket = socket_bind($socket, $ipaddr, $port);
         if (!$recv_socket) {
-            $this->_logger->error(sprintf('could not bind socket %s:%s', $ipadr, $port));
+            $this->_logger->error(sprintf('could not bind socket %s:%s', $ipaddr, $port));
             throw new RuntimeException("could not bind socket");
         }
 
-        $this->_logger->log(sprintf('create and binded socket %s:%s', $ipadr, $port));
+        $this->_logger->log(sprintf('create and binded socket %s:%s', $ipaddr, $port));
 
         return $socket;
     }

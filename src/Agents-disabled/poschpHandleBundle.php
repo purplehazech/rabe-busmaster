@@ -32,8 +32,8 @@ function poschpHandleBundle($job, &$log)
     $timstamp = array_shift($data['data']['data']);
     $bundles = $data['data']['data'];
 
-    $gc = new GearmanClient();
-    $gc->addServer();
+    //$gc = new GearmanClient();
+    //$gc->addServer();
 
     if ($timstamp <= new DateTime()) {
 
@@ -54,7 +54,7 @@ function poschpHandleBundle($job, &$log)
                 $function = "poschpDigestMessage";
             }
 
-            $gc->doBackground($function, serialize($bundle));
+            //$gc->doBackground($function, serialize($bundle));
         }
 
     } else {

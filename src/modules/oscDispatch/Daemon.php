@@ -59,7 +59,7 @@ class OscDispatch
         $this->_dispatcher->dispatch('/daemon/start');
         $this->_logger->log(sprintf('polling worker queue'));
 
-        $read = $wrwite = array();
+        $read = $write = array();
         $done = false;
         while (!$done) {
             $event = $this->_workPoll->poll($read, $write, 5000);
