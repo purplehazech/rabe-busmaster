@@ -60,7 +60,7 @@ class OscReceive
         $logger,
         $oscParser,
         $socketOscDispatch,
-        $pollCtrl
+        $socketCtrl
     ) { 
         $this->_dispatcher = $dispatcher;
         $this->_logger = $logger;
