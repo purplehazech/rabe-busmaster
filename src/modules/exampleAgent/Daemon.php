@@ -4,7 +4,7 @@
  *
  * PHP Version 5
  *
- * @todo fix this thing so daemonizing & also as a plus getopt happen in bootstrap
+ * @todo fix this thing so getopt happens in bootstrap
  * @todo also wouldn't it be nice not to 'while(true)'?
  *
  * @category   Busmaster
@@ -54,12 +54,13 @@ class ExampleAgent
      * it is undecided where that all the module documentation will
      * really live.
      *
-     * @param Symfony\Component\DependencyInjection\ContainerInterface $dic DIC
+     * @param Object $dispatcher Observer Event Dispatcher
+     * @param Object $logger     Default Logger
      */
-    function __construct($dic)
+    function __construct($dispatcher, $logger)
     {
-        $this->_dispatcher = $dic->get('dispatcher');
-        $this->_logger = $dic->get('logger');
+        $this->_dispatcher = $dispatcher;
+        $this->_logger = $logger;
     }
 
     /**
@@ -88,6 +89,3 @@ class ExampleAgent
         }
     }
 }
-
-$o = new ExampleAgent($dc);
-$o->run();

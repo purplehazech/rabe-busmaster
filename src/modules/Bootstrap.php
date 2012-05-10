@@ -25,13 +25,16 @@ require_once 'System/Daemon.php';
 /**
  * daemonize when module confirms
  */
-$dic->get('dispatcher')->addListener(
-    '/daemon/start',
-    function (Symfony\Component\EventDispatcher\Event $event) {
-        $daemon = $dic->get('daemon');
-        $daemon->setOption("appName", strtolower(MODULE_NAME));
-        $daemon->setOption("usePEARLogInstance", $dic->get('logger'));
-        $daemon->start();
-    }
-);
+if (isset($dic)) {
+    $dic->get('dispatcher')->addListener(
+        '/daemon/start',
+        function (Symfony\Component\EventDispatcher\Event $event) {
+            $daemon = $dic->get('daemon');
+            $daemon->setOption("appName", strtolower(MODULE_NAME));
+            $daemon->setOption("usePEARLogInstance", $dic->get('logger'));
+            $daemon->start();
+        }
+    );
+    $dic->get(MODULE_NAME.'Daemon');
+}
 

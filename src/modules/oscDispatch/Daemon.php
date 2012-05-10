@@ -38,15 +38,24 @@ class OscDispatch
     /**
      * constructor
      *
-     * @param Symfony\Component\DependencyInjection\ContainerInterface $dic DIC
+     * @param Object $dispatcher                Observer Event Dispaycher
+     * @param Object $logger                    Default Logger
+     * @param Object $oscDispatchPoll           OSC Dispatcher Poll
+     * @param Object $oscDispatchPollSocketWork OSC Dispatcher Poll Socket
+     * @param Object $oscDispatchPollSocketCtrl OSC Dispatcher Ctrl Socket
      */
-    function __construct($dic)
-    {
-        $this->_dispatcher = $dic->get('dispatcher');
-        $this->_logger = $dic->get('logger');
-        $this->_workPoll = $dic->get('oscDispatchPoll');
-        $this->_workSocket = $dic->get('oscDispatchPollSocketWork');
-        $this->_ctrlSocket = $dic->get('oscDispatchPollSocketCtrl');
+    function __construct(
+        $dispatcher,
+        $logger,
+        $oscDispatchPoll,
+        $oscDispatchPollSocketWork,
+        $oscDispatchPollSocketCtrl
+    ) {
+        $this->_dispatcher = $dispatcher;
+        $this->_logger = $logger;
+        $this->_workPoll = $oscDispatchPoll;
+        $this->_workSocket = $oscDispatchPollSocketWork;
+        $this->_ctrlSocket = $oscDispatchPollSocketCtrl;
     }
 
     /**
@@ -111,6 +120,3 @@ class OscDispatch
         );
     }
 }
-
-$o = new OscDispatch($dc);
-$o->run();

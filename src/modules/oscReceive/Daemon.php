@@ -47,10 +47,19 @@ class OscReceive
     /**
      * constructor
      *
-     * @param Symfony\Component\DependencyInjection\ContainerInterface $dic DIC
+     * @param Object $dispatcher                      observer event dispatcher
+     * @param Object $logger                          default logger
+     * @param Object $oscReceiveOscParser             OSC parser
+     * @param Object $oscReceivePushSocketOscDispatch OSC push to osc dispatch socket
+     * @param Object $oscReceivePollCtrl              OSC receive control socket
      */
-    Function __construct($dic)
-    {
+    Function __construct(
+        $dispatcher,
+        $logger,
+        $oscReceiveOscParser,
+        $oscReceivePushSocketOscDispatch,
+        $oscReceivePollCtrl
+    ) {
         $this->_dispatcher = $dic->get('dispatcher');
         $this->_logger = $dic->get('logger');
         $this->_osc = $dic->get('oscReceiveOscParser');
@@ -68,7 +77,6 @@ class OscReceive
         $this->_dispatcher->dispatch('/daemon/start');
         $this->startSocket();
     }
-
 
     /**
      * digest and dispatch a package
@@ -173,8 +181,3 @@ class OscReceive
         return $socket;
     }
 }
-
-// @todo repack into dc
-$o = new OscReceive($dc);
-$o->run();
-
