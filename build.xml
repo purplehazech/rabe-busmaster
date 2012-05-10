@@ -6,7 +6,7 @@
 
     <!-- -->
     <target name="build">
-	<!-- update Autoloader -->
+        <!-- update Autoloader -->
         <exec executable="php" failonerror="true" dir="src/">
             <arg value="../build/update-autoloader.php"/>
             <arg value="."/>
@@ -56,15 +56,15 @@
     -->
     <target name="test">
         <exec executable="phpcs">
-	    <arg value="-s"/> <!-- Show sniff codes in all reports -->
-	    <arg value="--standard=PEAR"/>
-	    <arg value="--ignore=README.md"/>
-	    <arg value="--report=checkstyle"/>
-	    <arg value="--report-file=build/checkstyle.xml"/>
-	    <!-- dirs to scan -->
-	    <arg value="src/"/>
-	    <arg value="bin/"/>
-	    <arg value="test/"/>
+            <arg value="-s"/> <!-- Show sniff codes in all reports -->
+            <arg value="--standard=PEAR"/>
+            <arg value="--ignore=README.md"/>
+            <arg value="--report=checkstyle"/>
+            <arg value="--report-file=build/checkstyle.xml"/>
+            <!-- dirs to scan -->
+            <arg value="src/"/>
+            <arg value="bin/"/>
+            <arg value="test/"/>
         </exec>
         <exec executable="phpmd">
             <!-- dirs to scan -->
@@ -73,6 +73,10 @@
             <arg value="codesize,design,naming,unusedcode"/>
             <arg value="--reportfile"/>
             <arg value="build/pmd.xml"/>
+        </exec>
+        <exec executable="phpunit">
+            <arg value="-c"/>
+            <arg value="phpunit.xml"/>
         </exec>
     </target>
 
