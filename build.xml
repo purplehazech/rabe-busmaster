@@ -74,7 +74,7 @@
             <arg value="--reportfile"/>
             <arg value="build/pmd.xml"/>
         </exec>
-        <exec executable="phpunit">
+        <exec dir="${basedir}" executable="phpunit">
             <arg value="-c"/>
             <arg value="phpunit.xml"/>
             <!-- doesnt work from xml for some reason -->
