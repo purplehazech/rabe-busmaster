@@ -4,16 +4,16 @@
     <service id="logger" class="Log" factory-class="Log" factory-method="factory">
       <argument>composite</argument>
       <call method="addChild">
-          <argument type="service" id="logger.console"/>
+          <argument type="service" id="loggerConsole"/>
       </call>
       <call method="addChild">
-          <argument type="service" id="logger.syslog"/>
+          <argument type="service" id="loggerSyslog"/>
       </call>
     </service>
-    <service id="logger.console" class="Log" factory-class="Log" factory-method="factory">
+    <service id="loggerConsole" class="Log" factory-class="Log" factory-method="factory">
       <argument>console</argument>
     </service>
-    <service id="logger.syslog" class="Log" factory-class="Log" factory-method="factory">
+    <service id="loggerSyslog" class="Log" factory-class="Log" factory-method="factory">
       <argument>syslog</argument>
     </service>
   </services>
