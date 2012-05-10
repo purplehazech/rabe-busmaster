@@ -78,8 +78,12 @@
             <arg value="-c"/>
             <arg value="phpunit.xml"/>
             <!-- doesnt work from xml for some reason -->
-            <arg value="log-junit"/>
-            <arg value="build/junit.xml"/>
+            <arg value="--log-junit"/>
+            <arg value="junit.xml"/>
+        </exec>
+        <exec executable="mv">
+            <arg value="junit.xml"/>
+            <arg value="build/jsunit.xml"/>
         </exec>
     </target>
 
