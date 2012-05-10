@@ -23,7 +23,9 @@
  * over the machine it is. Also 16 chars is the limit on this
  * name.
  */
-define('MODULE_NAME', basename(__DIR__));
+if (!defined('MODULE_NAME')) {
+    define('MODULE_NAME', basename(__DIR__));
+}
 
 /**
  * common worker bootstrap
