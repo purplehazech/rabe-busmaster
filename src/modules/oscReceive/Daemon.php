@@ -20,7 +20,7 @@
 /**
  * daemon name
  */
-define('DAEMON_NAME', basename(__DIR__));
+define('MODULE_NAME', basename(__DIR__));
 
 /**
  * common worker bootstrap

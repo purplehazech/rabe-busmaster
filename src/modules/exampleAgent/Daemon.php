@@ -23,7 +23,7 @@
  * over the machine it is. Also 16 chars is the limit on this
  * name.
  */
-define('DAEMON_NAME', basename(__DIR__));
+define('MODULE_NAME', basename(__DIR__));
 
 /**
  * common worker bootstrap

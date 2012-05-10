@@ -15,7 +15,7 @@
  * @link       http://osc.purplehaze.ch
  */
 
-require_once dirname(__FILE__).'/../Bootstrap.php';
+require_once __DIR__.'/../Bootstrap.php';
 
 /**
  * System_Daemon for a quick and reliable way to deamonize
@@ -23,18 +23,15 @@ require_once dirname(__FILE__).'/../Bootstrap.php';
 require_once 'System/Daemon.php';
 
 /**
- * minimal config
- */
-System_Daemon::setOption("appName", strtolower(DAEMON_NAME));
-System_Daemon::setOption("usePEARLogInstance", $dc->get('logger'));
-
-/**
  * daemonize when module confirms
  */
-$dc->get('dispatcher')->addListener(
+$dic->get('dispatcher')->addListener(
     '/daemon/start',
     function (Symfony\Component\EventDispatcher\Event $event) {
-        System_Daemon::start();
+        $daemon = $dic->get('daemon');
+        $daemon->setOption("appName", strtolower(MODULE_NAME));
+        $daemon->setOption("usePEARLogInstance", $dic->get('logger'));
+        $daemon->start();
     }
 );
 
