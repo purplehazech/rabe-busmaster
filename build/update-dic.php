@@ -40,8 +40,6 @@ define('DIC_BOILERPLATE', <<<EOD
  * @copyright  2012 Lucas S. Bickel 2011 - Alle Rechte vorbehalten
  * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
  * @link       http://purplehaze.ch
- *
- * @SuppressWarnings(PHPMD)
  */
 
 EOD
@@ -58,7 +56,14 @@ define('DIC_CLASSPART', <<<EOD
  * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
  * @link       http://purplehaze.ch
  *
- * @SuppressWarnings(PHPMD)
+ */
+// @codingStandardsIgnoreStart
+/**
+ * Sadly I found no really easy way to do this, all I really wanted
+ * is to just ignore the line length sniff on this file and this 
+ * file only. Maybe I'll take the time to fix when the stack is a
+ * bit more complete, for now lets just hope devs dont misuse this
+ * to much and start using stange service ids...
 EOD
 );
 
@@ -94,5 +99,5 @@ file_put_contents(
                 'class' => 'BootstrapDic'
             )
         )
-    )
+    )."\n// @codingStandardsIgnoreEnd"
 );
