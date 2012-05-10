@@ -46,27 +46,27 @@ require_once 'Osc/Parse.php';
  */
 class OscReceive
 {
-    /**
+    /** 
      * constructor
-     *
-     * @param Object $dispatcher                      observer event dispatcher
-     * @param Object $logger                          default logger
-     * @param Object $oscReceiveOscParser             OSC parser
-     * @param Object $oscReceivePushSocketOscDispatch OSC push to osc dispatch socket
-     * @param Object $oscReceivePollCtrl              OSC receive control socket
+     *  
+     * @param Object $dispatcher        observer event dispatcher
+     * @param Object $logger            default logger
+     * @param Object $oscParser         OSC parser
+     * @param Object $socketOscDispatch OSC push to osc dispatch socket
+     * @param Object $socketCtrl        OSC receive control socket
      */
     Function __construct(
         $dispatcher,
         $logger,
-        $oscReceiveOscParser,
-        $oscReceivePushSocketOscDispatch,
-        $oscReceivePollCtrl
-    ) {
-        $this->_dispatcher = $dic->get('dispatcher');
-        $this->_logger = $dic->get('logger');
-        $this->_osc = $dic->get('oscReceiveOscParser');
-        $this->_workPoll = $dic->get('oscReceivePushSocketOscDispatch');
-        $this->_ctrlSocket = $dic->get('oscReceivePollCtrl');
+        $oscParser,
+        $socketOscDispatch,
+        $pollCtrl
+    ) { 
+        $this->_dispatcher = $dispatcher;
+        $this->_logger = $logger;
+        $this->_osc = $oscParser;
+        $this->_workPoll = $socketOscDispatch;
+        $this->_ctrlSocket = $socketCtrl;
     }
 
     /**

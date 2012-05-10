@@ -40,24 +40,24 @@ class OscDispatch
     /**
      * constructor
      *
-     * @param Object $dispatcher                Observer Event Dispaycher
-     * @param Object $logger                    Default Logger
-     * @param Object $oscDispatchPoll           OSC Dispatcher Poll
-     * @param Object $oscDispatchPollSocketWork OSC Dispatcher Poll Socket
-     * @param Object $oscDispatchPollSocketCtrl OSC Dispatcher Ctrl Socket
+     * @param Object $dispatcher Observer Event Dispaycher
+     * @param Object $logger     Default Logger
+     * @param Object $poll       OSC Dispatcher Poll
+     * @param Object $socketWork OSC Dispatcher Poll Socket
+     * @param Object $socketCtrl OSC Dispatcher Ctrl Socket
      */
     function __construct(
         $dispatcher,
         $logger,
-        $oscDispatchPoll,
-        $oscDispatchPollSocketWork,
-        $oscDispatchPollSocketCtrl
+        $poll,
+        $socketWork,
+        $socketCtrl
     ) {
         $this->_dispatcher = $dispatcher;
         $this->_logger = $logger;
-        $this->_workPoll = $oscDispatchPoll;
-        $this->_workSocket = $oscDispatchPollSocketWork;
-        $this->_ctrlSocket = $oscDispatchPollSocketCtrl;
+        $this->_workPoll = $poll;
+        $this->_workSocket = $socketWork;
+        $this->_ctrlSocket = $socketCtrl;
     }
 
     /**
