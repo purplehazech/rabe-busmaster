@@ -32,7 +32,7 @@ System_Daemon::setOption("usePEARLogInstance", $dc->get('logger'));
  * daemonize when module confirms
  */
 $dc->get('dispatcher')->addListener(
-    '/daemon/start'
+    '/daemon/start',
     function (Symfony\Component\EventDispatcher\Event $event) {
         System_Daemon::start();
     }
