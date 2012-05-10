@@ -81,9 +81,9 @@
             <arg value="--log-junit"/>
             <arg value="junit.xml"/>
         </exec>
-        <exec executable="mv">
+        <exec executable="mv"> <!-- lol wut, I'll try removing this later -->
             <arg value="junit.xml"/>
-            <arg value="build/jsunit.xml"/>
+            <arg value="build/junit.xml"/>
         </exec>
     </target>
 
