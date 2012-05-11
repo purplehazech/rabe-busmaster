@@ -104,7 +104,7 @@ class OscDispatch_Daemon
         switch($address) {
     
         case "#bundle":
-            throw new RuntimeExecption("Bundles not implemented");
+            throw new RuntimeException("Bundles not implemented");
             break;
     
         default:
