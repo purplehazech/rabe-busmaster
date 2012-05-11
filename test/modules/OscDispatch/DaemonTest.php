@@ -108,6 +108,8 @@ class OscDispatch_DaemonTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * make sure we dispatch the daemon start
+     *
      * @covers OscDispatch_Daemon::start
      *
      * @return void
@@ -123,6 +125,8 @@ class OscDispatch_DaemonTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * check zmq interaction
+     *
      * @covers OscDispatch_Daemon::run
      * 
      * @return void
@@ -152,6 +156,8 @@ class OscDispatch_DaemonTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * check simple noop digesting
+     *
      * @covers OscDispatch_Daemon::digest
      * 
      * @return void
