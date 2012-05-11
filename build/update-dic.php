@@ -64,6 +64,8 @@ define('DIC_CLASSPART', <<<EOD
  * file only. Maybe I'll take the time to fix when the stack is a
  * bit more complete, for now lets just hope devs dont misuse this
  * to much and start using stange service ids...
+ * 
+ * @SuppressWarnings(PHPMD)
 EOD
 );
 
