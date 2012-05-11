@@ -5,7 +5,6 @@
  * PHP Version 5
  *
  * @todo fix this thing so getopt happens in bootstrap
- * @todo also wouldn't it be nice not to 'while(true)'?
  *
  * @category   Busmaster
  * @package    Server
@@ -66,28 +65,32 @@ class ExampleAgent_Daemon
     }
 
     /**
-     * main daemon method
+     * start method
+     * 
+     * gets called when the module starts and may be used for registering
+     * observers and thing. Be sure to dispatch a /daemon/start msg
+     * after setup and the bootstrap will daemonize for you.
      *
-     * quite literally this is the while(true) part of the whole php
-     * based daemon stuff. Be sure to dispatch a /daemon/start msg
-     * and you're safe to go. 
-     *
-     * @return true
+     * @return void
      */
-    function run()
+    public function start()
     {
         // log that we are running
         $this->_logger->log(sprintf('Starting %s daemon', __CLASS__));
 
         // daemonize 
         $this->_dispatcher->dispatch('/daemon/start');
+    }
 
-        // main loop
-        while (true) {
-            // do one thing here
-
-            // wait for some time
-            usleep(500000); // 0.5 secs
-        }
+    /**
+     * main daemon method
+     *
+     * This is the main body of the daemons while(true) part.
+     *
+     * @return true
+     */
+    function run()
+    {
+        // do one thing here
     }
 }

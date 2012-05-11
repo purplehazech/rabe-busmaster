@@ -35,6 +35,14 @@ if (isset($dic)) {
             $daemon->start();
         }
     );
-    $dic->get(MODULE_NAME.'Daemon');
+    $module = $dic->get(MODULE_NAME.'Daemon');
+    $module->start();
+    // @todo reactivate thru getopt (so it stays inactive in most cases except cli)
+    $run = false;
+    while ($run) {
+        $daemon->run();
+        // wait for some time
+        usleep(500000); // 0.5 secs
+    }
 }
 
