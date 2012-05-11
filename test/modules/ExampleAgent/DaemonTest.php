@@ -85,7 +85,7 @@ class ExampleAgent_DaemonTest extends PHPUnit_Framework_TestCase
     {
         $this->dispatchMock
             ->expects($this->never())
-            ->method('dispatch')
+            ->method('dispatch');
         
         $this->object = new ExampleAgent_Daemon(
             $this->dispatchMock,
