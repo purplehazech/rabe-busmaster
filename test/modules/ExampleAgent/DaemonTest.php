@@ -77,7 +77,7 @@ class ExampleAgent_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * this basic module hardly has any tests
      *
-     * @covers {className}::{origMethodName}
+     * @covers ExampleAgent_Daemon::start
      *
      * @return void
      */
