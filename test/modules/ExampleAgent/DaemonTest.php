@@ -47,10 +47,13 @@ class ExampleAgent_DaemonTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $dispatchMock = $this->getMock(
-             'Symfony\Component\EventDispatcher\EventDispatcher',
+             'stdClass',
              array('dispatch')
         );
-        $loggerMock = $this->getMock('Log');
+        $loggerMock = $this->getMock(
+            'stdClass',
+            array('log')
+        );
 
         $this->_object = new ExampleAgent_Daemon(
             $dispatchMock,
@@ -72,20 +75,22 @@ class ExampleAgent_DaemonTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * this basic module hardly has any tests
+     *
      * @covers {className}::{origMethodName}
      *
      * @return void
      */
     public function testStart()
     {
-        $this->_dispatchMock
-             ->expects($this->once())
-             ->method('dispatch')
-             ->with($this->equalTo('/daemon/start'));
         $this->_loggerMock
              ->expects($this->once())
              ->method('log')
              ->with($this->equalTo('starting ExampleAgent daemon'));
+        $this->_dispatchMock
+             ->expects($this->once())
+             ->method('dispatch')
+             ->with($this->equalTo('/daemon/start'));
 
         $this->_object->start();
     }
