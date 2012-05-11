@@ -52,7 +52,7 @@ class OscDispatch_DaemonTest extends PHPUnit_Framework_TestCase
         );
         $loggerMock = $this->getMock(
             'stdClass',
-            array('log')
+            array('log', 'debug')
         );
         $workPollMock = $this->getMock(
             'stdClass',
