@@ -75,6 +75,25 @@ class ExampleAgent_DaemonTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * test constructor
+     *
+     * @covers ExampleAgent_Daemon::__constructor
+     *
+     * @return void
+     */
+    public function testConstructor()
+    {
+        $this->dispatchMock
+            ->expects($this->never())
+            ->method('dispatch')
+        
+        $this->object = new ExampleAgent_Daemon(
+            $this->dispatchMock,
+            $this->loggerMock
+        );
+    }
+
+    /**
      * this basic module hardly has any tests
      *
      * @covers ExampleAgent_Daemon::start
