@@ -6,7 +6,6 @@
         <argument type="service" id="logger"/>
         <argument type="service" id="oscDispatchPoll"/>
         <argument type="service" id="oscDispatchPollSocketWork"/>
-        <argument type="service" id="oscDispatchPollSocketCtrl"/>
         <call method="run"/>
     </service>
 

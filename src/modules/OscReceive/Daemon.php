@@ -53,31 +53,38 @@ class OscReceive_Daemon
      * @param Object $logger            default logger
      * @param Object $oscParser         OSC parser
      * @param Object $socketOscDispatch OSC push to osc dispatch socket
-     * @param Object $socketCtrl        OSC receive control socket
      */
     Function __construct(
         $dispatcher,
         $logger,
         $oscParser,
-        $socketOscDispatch,
-        $socketCtrl
+        $socketOscDispatch
     ) { 
         $this->_dispatcher = $dispatcher;
         $this->_logger = $logger;
         $this->_osc = $oscParser;
         $this->_workPoll = $socketOscDispatch;
-        $this->_ctrlSocket = $socketCtrl;
     }
 
     /**
-     * daemonize & socketize
+     * start daemon
+     *
+     * @return void
+     */
+    function start()
+    {
+        $this->_dispatcher->dispatch('/daemon/start');
+        $this->startSocket();
+    }
+
+    /**
+     * run stuff
      *
      * @return void
      */
     function run()
     {
-        $this->_dispatcher->dispatch('/daemon/start');
-        $this->startSocket();
+        $this->runSocket();
     }
 
     /**
@@ -93,26 +100,32 @@ class OscReceive_Daemon
         $ipaddr = $conf['osc']['listen_host'];
         $port = $conf['osc']['listen_port'];
 
-        $socket = $this->_bindNewSocket($ipaddr, $port);
-    
-        while (true) {
-            if (socket_recvfrom($socket, $buffer, 9999, 0, $name)) {
-                $this->_socketName = $name;
-    
-                // parse incoming buffer
-                $oscdata = $this->parseBuffer($buffer);
+        $this->socket = $this->_bindNewSocket($ipaddr, $port);
+    }
 
-                // digest results in background
-                $this->_workPoll->send(json_encode($oscdata));
+    /**
+     * method for receiving from socket
+     *
+     * @return Boolean
+     */
+    function runSocket()
+    {
+        if (socket_recvfrom($this->_socket, $buffer, 9999, 0, $name)) {
+            $this->_socketName = $name;
+    
+            // parse incoming buffer
+            $oscdata = $this->parseBuffer($buffer);
 
-                // log info 
-                $this->_logger->debug(__CLASS__." digested an OSC message");
-            }
-            usleep(500000); // 0.5 secs
+            // digest results in background
+            $this->_workPoll->send(json_encode($oscdata));
+
+            // log info 
+            $this->_logger->debug(__CLASS__." digested an OSC message");
         }
     
         return true;
     }
+
 
     /**
      * parse osc

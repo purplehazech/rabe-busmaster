@@ -44,20 +44,27 @@ class OscDispatch_Daemon
      * @param Object $logger     Default Logger
      * @param Object $poll       OSC Dispatcher Poll
      * @param Object $socketWork OSC Dispatcher Poll Socket
-     * @param Object $socketCtrl OSC Dispatcher Ctrl Socket
      */
     function __construct(
         $dispatcher,
         $logger,
         $poll,
-        $socketWork,
-        $socketCtrl
+        $socketWork
     ) {
         $this->_dispatcher = $dispatcher;
         $this->_logger = $logger;
         $this->_workPoll = $poll;
         $this->_workSocket = $socketWork;
-        $this->_ctrlSocket = $socketCtrl;
+    }
+
+    /**
+     * start methode
+     *
+     * @return void
+     */
+    function start()
+    {
+        $this->_dispatcher->dispatch('/daemon/start');
     }
 
     /**
@@ -67,22 +74,13 @@ class OscDispatch_Daemon
      */
     function run()
     {
-        $this->_dispatcher->dispatch('/daemon/start');
-        $this->_logger->log(sprintf('polling worker queue'));
-
         $read = $write = array();
-        $done = false;
-        while (!$done) {
-            $event = $this->_workPoll->poll($read, $write, 5000);
-            if ($event) {
-                // do the work
-                $this->_logger->debug(sprintf('digesting OSC datagram'));
-                $this->digest(json_decode($this->_workSocket->recv()));
-            } else {
-                if ($this->_ctrlSocket->recv(ZMQ::MODE_NOBLOCK)) {
-                    $done = true;
-                }
-            }
+        $this->_logger->debug(sprintf('polling worker queue'));
+        $event = $this->_workPoll->poll($read, $write, 5000);
+        if ($event) {
+            // do the work
+            $this->_logger->debug(sprintf('digesting OSC datagram'));
+            $this->digest(json_decode($this->_workSocket->recv()));
         }
     }
 
