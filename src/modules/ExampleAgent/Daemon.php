@@ -76,7 +76,7 @@ class ExampleAgent_Daemon
     public function start()
     {
         // log that we are running
-        $this->_logger->log(sprintf('Starting %s daemon', __CLASS__));
+        $this->_logger->log(sprintf('starting %s daemon', basename(__DIR__)));
 
         // daemonize 
         $this->_dispatcher->dispatch('/daemon/start');
