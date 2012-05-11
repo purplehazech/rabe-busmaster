@@ -152,7 +152,7 @@ class OscDispatch_DaemonTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers OscDispatch_Daemon::run
+     * @covers OscDispatch_Daemon::digest
      * 
      * @return void
      */
