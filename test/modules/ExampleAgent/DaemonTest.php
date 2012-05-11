@@ -55,7 +55,7 @@ class ExampleAgent_DaemonTest extends PHPUnit_Framework_TestCase
         $this->_object = new ExampleAgent_Daemon(
             $dispatchMock,
             $loggerMock
-        )
+        );
 
         $this->_dispatchMock = $dispatchMock;
         $this->_loggerMock = $loggerMock;
