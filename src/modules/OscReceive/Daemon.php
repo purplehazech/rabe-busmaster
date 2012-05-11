@@ -44,7 +44,7 @@ require_once 'Osc/Parse.php';
  * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
  * @link       http://osc.purplehaze.ch
  */
-class OscReceive
+class OscReceive_Daemon
 {
     /** 
      * constructor
