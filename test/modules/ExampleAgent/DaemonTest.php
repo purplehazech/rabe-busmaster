@@ -77,11 +77,11 @@ class ExampleAgent_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * test constructor
      *
-     * @covers ExampleAgent_Daemon::__constructor
+     * @covers ExampleAgent_Daemon::__construct
      *
      * @return void
      */
-    public function testConstructor()
+    public function testConstruct()
     {
         $this->dispatchMock
             ->expects($this->never())
