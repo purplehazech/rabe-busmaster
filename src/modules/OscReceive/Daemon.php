@@ -92,7 +92,7 @@ class OscReceive_Daemon
      *
      * @return void
      */
-    function startSocket()
+    private function startSocket()
     {
         // @todo fixme into something generic
         $conf = parse_ini_file('/etc/busmaster/busmaster.ini', true);
@@ -108,7 +108,7 @@ class OscReceive_Daemon
      *
      * @return Boolean
      */
-    function runSocket()
+    private function runSocket()
     {
         if (socket_recvfrom($this->_socket, $buffer, 9999, 0, $name)) {
             $this->_socketName = $name;
