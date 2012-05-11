@@ -2,8 +2,8 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
   <imports>
     <import resource="../src/modules/log/services.xml"/>
-    <import resource="../src/modules/oscDispatch/services.xml"/>
-    <import resource="../src/modules/oscReceive/services.xml"/>
+    <import resource="../src/modules/OscDispatch/services.xml"/>
+    <import resource="../src/modules/OscReceive/services.xml"/>
   </imports>
   <services>
     <!-- core services -->
