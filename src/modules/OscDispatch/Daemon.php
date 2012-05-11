@@ -113,7 +113,7 @@ class OscDispatch_Daemon
 
         $this->_logger->log(
             sprintf(
-                "Handling Message for %s with %s",
+                "handling message %s with %s",
                 $address,
                 $function
             )
