@@ -161,7 +161,7 @@ class OscDispatch_DaemonTest extends PHPUnit_Framework_TestCase
         $this->loggerMock
             ->expects($this->once())
             ->method('log')
-            ->with($this->equalTo('handling hessage /hello/world with noop'));
+            ->with($this->equalTo('handling message /hello/world with noop'));
 
         $this->object->digest(json_decode('{"address":"/hello/world"}'));
 
