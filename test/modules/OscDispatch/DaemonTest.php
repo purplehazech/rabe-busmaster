@@ -136,20 +136,19 @@ class OscDispatch_DaemonTest extends PHPUnit_Framework_TestCase
         $this->workPollMock
             ->expects($this->once())
             ->method('poll')
-            ->with($this->equalTo(array(), array(), 5000))
+            ->with(
+                $this->equalTo(array()),
+                $this->equalTo(array()),
+                $this->equalTo(5000)
+            )
             ->will($this->returnValue(true));
 
         $this->workSocketMock
             ->expects($this->once())
             ->method('recv')
-            ->will($this->returnValue(json_decode('{address:"/hello/world"}')));
+            ->will($this->returnValue('{"address":"/hello/world"}'));
 
         $this->object->run();
-
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
     }
 
     /**
