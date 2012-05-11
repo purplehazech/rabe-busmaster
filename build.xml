@@ -6,6 +6,10 @@
 
     <!-- -->
     <target name="build">
+        <exec executable="sh">
+            <arg value="build/clean.sh"/>
+        </exec>
+
         <!-- update Autoloader -->
         <exec executable="php" failonerror="true" dir="src/">
             <arg value="../build/update-autoloader.php"/>
