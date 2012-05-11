@@ -36,7 +36,7 @@ class ExampleAgent_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * @var ExampleAgent_Daemon
      */
-    protected $_object;
+    protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -47,21 +47,21 @@ class ExampleAgent_DaemonTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $dispatchMock = $this->getMock(
-             'stdClass',
-             array('dispatch')
+            'stdClass',
+            array('dispatch')
         );
         $loggerMock = $this->getMock(
             'stdClass',
             array('log')
         );
 
-        $this->_object = new ExampleAgent_Daemon(
+        $this->object = new ExampleAgent_Daemon(
             $dispatchMock,
             $loggerMock
         );
 
-        $this->_dispatchMock = $dispatchMock;
-        $this->_loggerMock = $loggerMock;
+        $this->dispatchMock = $dispatchMock;
+        $this->loggerMock = $loggerMock;
     }
 
     /**
@@ -83,16 +83,30 @@ class ExampleAgent_DaemonTest extends PHPUnit_Framework_TestCase
      */
     public function testStart()
     {
-        $this->_loggerMock
-             ->expects($this->once())
-             ->method('log')
-             ->with($this->equalTo('starting ExampleAgent daemon'));
-        $this->_dispatchMock
-             ->expects($this->once())
-             ->method('dispatch')
-             ->with($this->equalTo('/daemon/start'));
+        $this->loggerMock
+            ->expects($this->once())
+            ->method('log')
+            ->with($this->equalTo('starting ExampleAgent daemon'));
+        $this->dispatchMock
+            ->expects($this->once())
+            ->method('dispatch')
+            ->with($this->equalTo('/daemon/start'));
 
-        $this->_object->start();
+        $this->object->start();
+    }
+
+    /**
+     * check if the run method executes
+     * 
+     * it does, and it does nothing
+     *
+     * @covers ExampleAgent_Daemon::run
+     *
+     * @return void
+     */
+    public function testRun()
+    {
+        $this->object->run();
     }
 }
 
