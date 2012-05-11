@@ -13,7 +13,7 @@
  * @link       http://purplehaze.ch
  */
 
-require_once __DIR__.'/,,/Bootstrap.php';
+require_once __DIR__.'/../Bootstrap.php';
 
 /**
  * system under Test
