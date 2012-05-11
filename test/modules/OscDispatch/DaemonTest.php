@@ -155,14 +155,18 @@ class OscDispatch_DaemonTest extends PHPUnit_Framework_TestCase
      * @covers OscDispatch_Daemon::run
      * 
      * @return void
-     * @todo Implement testDigest().
      */
     public function testDigest()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->loggerMock
+            ->expects($this->once())
+            ->method('log')
+            ->with($this->equalTo('handling hessage /hello/world with noop'));
+
+        $this->object->digest(json_decode('{"address":"/hello/world"}'));
+
+        $this->setExpectedException('RuntimeException');
+        $this->object->digest(json_decode('{"address":"#bundle"}'));
     }
 }
 
