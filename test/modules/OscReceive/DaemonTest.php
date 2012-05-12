@@ -115,7 +115,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         $this->dispatchMock
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo('/daemon/start'/));
+            ->with($this->equalTo('/daemon/start/'));
 
         $o = new OscReceive_Daemon(
             $this->dispatchMock,
