@@ -95,7 +95,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
             ->expects($this->never())
             ->method('dispatch');
 
-        $o = new OscReceive_Daemon(
+        new OscReceive_Daemon(
             $this->dispatchMock,
             $this->loggerMock,
             $this->oscMock,
@@ -117,12 +117,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
             ->method('dispatch')
             ->with($this->equalTo('/daemon/start/'));
 
-        $o = new OscReceive_Daemon(
-            $this->dispatchMock,
-            $this->loggerMock,
-            $this->oscMock,
-            $this->workPollMock
-        );
+        $this->object->start();
     }
 
     /**
