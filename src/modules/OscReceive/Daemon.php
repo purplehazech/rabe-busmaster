@@ -46,6 +46,21 @@ require_once 'Osc/Parse.php';
  */
 class OscReceive_Daemon
 {
+    /**
+     * @var String
+     */
+    var $socketRecvFromFunction = "socket_recvfrom";
+
+    /**
+     * @var String
+     */
+    var $socketCreateFunction = "socket_create";
+
+    /**
+     * @var String
+     */
+    var $socketBindFunction = "socket_bind";
+
     /** 
      * constructor
      *  
@@ -73,8 +88,11 @@ class OscReceive_Daemon
      */
     function start()
     {
+        // @todo refactor and make configurable via /etc/busmaster.ini
+        $ipaddr = '0.0.0.0';
+        $port = 10000;
         $this->dispatcher->dispatch('/daemon/start');
-        $this->_startSocket();
+        $this->socket = $this->_bindNewSocket($ipaddr, $port);
     }
 
     /**
@@ -88,29 +106,14 @@ class OscReceive_Daemon
     }
 
     /**
-     * digest and dispatch a package
-     *
-     * @return void
-     */
-    private function _startSocket()
-    {
-        // @todo fixme into something generic
-        $conf = parse_ini_file('/etc/busmaster/busmaster.ini', true);
-    
-        $ipaddr = $conf['osc']['listen_host'];
-        $port = $conf['osc']['listen_port'];
-
-        $this->socket = $this->_bindNewSocket($ipaddr, $port);
-    }
-
-    /**
      * method for receiving from socket
      *
      * @return Boolean
      */
     private function _runSocket()
     {
-        if (socket_recvfrom($this->socket, $buffer, 9999, 0, $name)) {
+        $func = $this->socketRecvFromFunction;
+        if ($func($this->socket, $buffer, 9999, 0, $name)) {
             $this->socketName = $name;
     
             // parse incoming buffer
@@ -159,7 +162,8 @@ class OscReceive_Daemon
             )
         );
     
-        $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+        $func = $this->socketCreateFunction;
+        $socket = $func(AF_INET, SOCK_DGRAM, SOL_UDP);
         if (!$socket) {
             $this->logger->error(
                 sprintf(
@@ -173,7 +177,8 @@ class OscReceive_Daemon
 
         $this->logger->log(sprintf('binding socket on %s:%s', $ipaddr, $port));
 
-        $recv_socket = socket_bind($socket, $ipaddr, $port);
+        $func = $this->socketBindFunction;
+        $recv_socket = $func($socket, $ipaddr, $port);
         if (!$recv_socket) {
             $this->logger->error(
                 sprintf(

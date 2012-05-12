@@ -66,10 +66,44 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
             $workPollMock
         );
 
+        // test shunting for low level methods
+        $this->object->socketRecvFromFunction = __CLASS__.'::socketRecvfrom';
+        $this->object->socketCreateFunction = __CLASS__.'::socketCreate';
+        $this->object->socketBindFunction = __CLASS__.'::socketBind';
+
         $this->dispatchMock = $dispatchMock;
         $this->loggerMock = $loggerMock;
         $this->oscMock = $oscMock;
         $this->workPollMock = $workPollMock;
+    }
+
+    /**
+     * shunt for socket_recvfrom
+     */
+    public function socketRecvfrom($socket, &$buffer, $length, $flags, &$name)
+    {
+        unset($socket);
+        unset($length);
+        unset($flags);
+
+        $buffer = 'oscmsg';
+        $name = 'testSocket';
+
+        return true;
+    }
+
+    /**
+     * shunt for socket_create
+     */
+    public function socketCreate()
+    {
+    }
+
+    /**
+     * shunt for socket_bind
+     */
+    public function socketBind()
+    {
     }
 
     /**
@@ -126,15 +160,46 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      * @covers OscReceive_Daemon::run
      *
      * @return void
-     *
-     * @todo Implement testRun().
      */
     public function testRun()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->run();
+    }
+
+    /**
+     * test runSocket method
+     *
+     * @covers OscReceive_Daemon::_runSocket
+     * @covers OscReceive_Daemon::_parseBuffer
+     *
+     * @return void
+     */
+    public function testRunSocket()
+    {
+        $this->workPollMock
+            ->expect($this->once())
+            ->method('send')
+            ->with($this->equalTo(json_decode('{"address":"/test/1"}')));
+
+        $this->oscMock
+            ->expect($this->once())
+            ->method('setDataString')
+            ->with($this->equalTo('oscmsg'));
+        $this->oscMock
+            ->expect($this->once())
+            ->method('parse');
+        $this->oscMock
+            ->expect($this->once())
+            ->method('getResult')
+            ->will($this->returnValue(json_decode('{"address":"/test/1"}')));
+
+        $this->loggerMock
+            ->expect($this->once())
+            ->method('debug')
+            ->with($this->equalTo('OscReceive_Daemon digested an OSC message'));
+
+        $this->assertTrue($this->object->run());
+        $this->assertEquals($this->object->socketName, 'testSocket');
     }
 
     /**
@@ -147,23 +212,6 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      * @todo Implement testStartSocket().
      */
     public function testStartSocket()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * test runSocket method
-     *
-     * @covers OscReceive_Daemon::_runSocket
-     *
-     * @return void
-     *
-     * @todo Implement testRunSocket().
-     */
-    public function testRunSocket()
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
