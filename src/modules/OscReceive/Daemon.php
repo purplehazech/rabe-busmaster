@@ -113,7 +113,7 @@ class OscReceive_Daemon
     private function _runSocket()
     {
         $func = $this->socketRecvFromFunc;
-        if (call_user_function($func, $this->socket, $buffer, 9999, 0, $name)) {
+        if (call_user_func($func, $this->socket, $buffer, 9999, 0, $name)) {
             $this->socketName = $name;
     
             // parse incoming buffer
@@ -163,7 +163,7 @@ class OscReceive_Daemon
         );
     
         $func = $this->socketCreateFunc;
-        $socket = call_user_function($func, AF_INET, SOCK_DGRAM, SOL_UDP);
+        $socket = call_user_func($func, AF_INET, SOCK_DGRAM, SOL_UDP);
         if (!$socket) {
             $this->logger->error(
                 sprintf(
@@ -178,7 +178,7 @@ class OscReceive_Daemon
         $this->logger->log(sprintf('binding socket on %s:%s', $ipaddr, $port));
 
         $func = $this->socketBindFunc;
-        $recv_socket = call_user_function($func, $socket, $ipaddr, $port);
+        $recv_socket = call_user_func($func, $socket, $ipaddr, $port);
         if (!$recv_socket) {
             $this->logger->error(
                 sprintf(
