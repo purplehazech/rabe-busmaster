@@ -80,7 +80,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * shunt for socket_recvfrom
      */
-    public function socketRecvfrom($socket, &$buffer, $length, $flags, &$name)
+    static public function socketRecvfrom($socket, &$buffer, $length, $flags, &$name)
     {
         unset($socket);
         unset($length);
@@ -95,14 +95,14 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * shunt for socket_create
      */
-    public function socketCreate()
+    static public function socketCreate()
     {
     }
 
     /**
      * shunt for socket_bind
      */
-    public function socketBind()
+    static public function socketBind()
     {
     }
 
