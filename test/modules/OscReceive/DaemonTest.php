@@ -85,7 +85,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * test constructor
      *
-     * @covers OscReceive_Daemon::_construct
+     * @covers OscReceive_Daemon::__construct
      *
      * @return void
      */
