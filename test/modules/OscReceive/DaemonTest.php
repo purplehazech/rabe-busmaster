@@ -57,7 +57,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         );
         $workPollMock = $this->getMock(
             'stdClass',
-            array('poll')
+            array('send')
         );
 
         $this->object = new OscReceive_Daemon(
