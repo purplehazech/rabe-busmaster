@@ -60,10 +60,10 @@ class OscReceive_Daemon
         $oscParser,
         $socketOscDispatch
     ) { 
-        $this->_dispatcher = $dispatcher;
-        $this->_logger = $logger;
-        $this->_osc = $oscParser;
-        $this->_workPoll = $socketOscDispatch;
+        $this->dispatcher = $dispatcher;
+        $this->logger = $logger;
+        $this->osc = $oscParser;
+        $this->workPoll = $socketOscDispatch;
     }
 
     /**
@@ -73,8 +73,8 @@ class OscReceive_Daemon
      */
     function start()
     {
-        $this->_dispatcher->dispatch('/daemon/start');
-        $this->startSocket();
+        $this->dispatcher->dispatch('/daemon/start');
+        $this->_startSocket();
     }
 
     /**
@@ -84,7 +84,7 @@ class OscReceive_Daemon
      */
     function run()
     {
-        $this->runSocket();
+        $this->_runSocket();
     }
 
     /**
@@ -92,7 +92,7 @@ class OscReceive_Daemon
      *
      * @return void
      */
-    private function startSocket()
+    private function _startSocket()
     {
         // @todo fixme into something generic
         $conf = parse_ini_file('/etc/busmaster/busmaster.ini', true);
@@ -108,19 +108,19 @@ class OscReceive_Daemon
      *
      * @return Boolean
      */
-    private function runSocket()
+    private function _runSocket()
     {
-        if (socket_recvfrom($this->_socket, $buffer, 9999, 0, $name)) {
-            $this->_socketName = $name;
+        if (socket_recvfrom($this->socket, $buffer, 9999, 0, $name)) {
+            $this->socketName = $name;
     
             // parse incoming buffer
-            $oscdata = $this->parseBuffer($buffer);
+            $oscdata = $this->_parseBuffer($buffer);
 
             // digest results in background
-            $this->_workPoll->send(json_encode($oscdata));
+            $this->workPoll->send(json_encode($oscdata));
 
             // log info 
-            $this->_logger->debug(__CLASS__." digested an OSC message");
+            $this->logger->debug(__CLASS__." digested an OSC message");
         }
     
         return true;
@@ -134,11 +134,11 @@ class OscReceive_Daemon
      *
      * @return Array parsed osc data
      */
-    protected function parseBuffer($buffer)
+    private function _parseBuffer($buffer)
     {
-        $this->_osc->setDataString($buffer);
-        $this->_osc->parse();
-        return $this->_osc->getResult();
+        $this->osc->setDataString($buffer);
+        $this->osc->parse();
+        return $this->osc->getResult();
     }
 
     /**
@@ -151,7 +151,7 @@ class OscReceive_Daemon
      */
     private function _bindNewSocket($ipaddr, $port)
     {
-        $this->_logger->log(
+        $this->logger->log(
             sprintf(
                 'creating socket on %s:%s',
                 $ipaddr,
@@ -161,7 +161,7 @@ class OscReceive_Daemon
     
         $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         if (!$socket) {
-            $this->_logger->error(
+            $this->logger->error(
                 sprintf(
                     'could not create socket %s:%s',
                     $ipaddr,
@@ -171,11 +171,11 @@ class OscReceive_Daemon
             throw new RuntimeException("could not create socket");
         }
 
-        $this->_logger->log(sprintf('binding socket on %s:%s', $ipaddr, $port));
+        $this->logger->log(sprintf('binding socket on %s:%s', $ipaddr, $port));
 
         $recv_socket = socket_bind($socket, $ipaddr, $port);
         if (!$recv_socket) {
-            $this->_logger->error(
+            $this->logger->error(
                 sprintf(
                     'could not bind socket %s:%s',
                     $ipaddr,
@@ -185,7 +185,7 @@ class OscReceive_Daemon
             throw new RuntimeException("could not bind socket");
         }
 
-        $this->_logger->log(
+        $this->logger->log(
             sprintf(
                 'create and binded socket %s:%s', 
                 $ipaddr, 
