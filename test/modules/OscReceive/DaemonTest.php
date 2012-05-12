@@ -38,6 +38,8 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
+     *
+     * @return void
      */
     protected function setUp()
     {
@@ -47,13 +49,20 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
+     *
+     * @return void
      */
     protected function tearDown()
     {
     }
 
     /**
+     * test start method
+     *
      * @covers OscReceive_Daemon::start
+     *
+     * @return void
+     *
      * @todo Implement testStart().
      */
     public function testStart()
@@ -65,7 +74,12 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * test run method
+     *
      * @covers OscReceive_Daemon::run
+     *
+     * @return void
+     *
      * @todo Implement testRun().
      */
     public function testRun()
@@ -77,7 +91,12 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers OscReceive_Daemon::startSocket
+     * test startsocket method
+     *
+     * @covers OscReceive_Daemon::_startSocket
+     *
+     * @return void
+     *
      * @todo Implement testStartSocket().
      */
     public function testStartSocket()
@@ -89,7 +108,12 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers OscReceive_Daemon::runSocket
+     * test runSocket method
+     *
+     * @covers OscReceive_Daemon::_runSocket
+     *
+     * @return void
+     *
      * @todo Implement testRunSocket().
      */
     public function testRunSocket()
