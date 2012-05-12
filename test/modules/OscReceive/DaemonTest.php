@@ -177,24 +177,24 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     public function testRunSocket()
     {
         $this->workPollMock
-            ->expect($this->once())
+            ->expects($this->once())
             ->method('send')
             ->with($this->equalTo(json_decode('{"address":"/test/1"}')));
 
         $this->oscMock
-            ->expect($this->once())
+            ->expects($this->once())
             ->method('setDataString')
             ->with($this->equalTo('oscmsg'));
         $this->oscMock
-            ->expect($this->once())
+            ->expects($this->once())
             ->method('parse');
         $this->oscMock
-            ->expect($this->once())
+            ->expects($this->once())
             ->method('getResult')
             ->will($this->returnValue(json_decode('{"address":"/test/1"}')));
 
         $this->loggerMock
-            ->expect($this->once())
+            ->expects($this->once())
             ->method('debug')
             ->with($this->equalTo('OscReceive_Daemon digested an OSC message'));
 
