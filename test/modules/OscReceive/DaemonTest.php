@@ -73,6 +73,12 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         if (!defined('AF_INET')) {
             define('AF_INET', 'AF_INET');
         }
+        if (!defined('SOCK_DGRAM')) {
+            define('SOCK_DGRAM', 'SOCK_DGRAM');
+        }
+        if (!defined('SOL_UDP')) {
+            define('SOL_UDP', 'SOL_UDP');
+        }
 
         $this->dispatchMock = $dispatchMock;
         $this->loggerMock = $loggerMock;

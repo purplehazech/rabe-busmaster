@@ -112,6 +112,7 @@ class OscReceive_Daemon
      */
     private function _runSocket()
     {
+        $buffer = NULL;
         $func = $this->socketRecvFromFunc;
         if (call_user_func($func, $this->socket, $buffer, 9999, 0, $name)) {
             $this->socketName = $name;
