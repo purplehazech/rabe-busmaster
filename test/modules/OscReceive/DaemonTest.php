@@ -96,8 +96,8 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         unset($length);
         unset($flags);
 
-        $buffer = 'oscmsg';
-        $name = 'testSocket';
+        $buffer = '';
+        $name = '';
 
         return true;
     }
@@ -198,7 +198,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         $this->oscMock
             ->expects($this->once())
             ->method('setDataString')
-            ->with($this->equalTo('oscmsg'));
+            ->with($this->equalTo(''));
         $this->oscMock
             ->expects($this->once())
             ->method('parse');
@@ -215,7 +215,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         $this->object->socket = new stdClass;
 
         $this->assertTrue($this->object->run());
-        $this->assertEquals($this->object->socketName, 'testSocket');
+        $this->assertEquals($this->object->socketName, '');
     }
 
     /**
