@@ -43,7 +43,33 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        //$this->object = new OscReceive_Daemon;
+        $dispatchMock = $this->getMock(
+            'stdClass',
+            array('dispatch')
+        );
+        $loggerMock = $this->getMock(
+            'stdClass',
+            array('log', 'debug')
+        );
+        $oscMock = $this->getMock(
+            'stdClass'
+        );
+        $workPollMock = $this->getMock(
+            'stdClass',
+            array('poll')
+        );
+
+        $this->object = new OscReceive_Daemon(
+            $dispatchMock,
+            $loggerMock,
+            $oscMock,
+            $workPollMock
+        );
+
+        $this->dispatchMock = $dispatchMock;
+        $this->loggerMock = $loggerMock;
+        $this->oscMock = $oscMock;
+        $this->workPollMock = $workPollMock;
     }
 
     /**
@@ -54,6 +80,27 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+    }
+
+    /**
+     * test constructor
+     *
+     * @covers OscReceiveDaemon::_construct
+     *
+     * @return void
+     */
+    public function testConstruct()
+    {
+        $this->dispatchMock
+            ->expects($this->never())
+            ->method('dispatch');
+
+        $o = new OscReceive_Daemon(
+            $this->dispatcherMock,
+            $this->loggerMock,
+            $this->oscMock,
+            $this->workPollMock
+        );
     }
 
     /**
