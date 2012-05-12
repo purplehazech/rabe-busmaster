@@ -49,7 +49,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         );
         $loggerMock = $this->getMock(
             'stdClass',
-            array('log', 'debug')
+            array('log', 'debug', 'error')
         );
         $oscMock = $this->getMock(
             'stdClass'
@@ -106,6 +106,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      */
     static function socketCreate()
     {
+        return true;
     }
 
     /**
