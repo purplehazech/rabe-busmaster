@@ -1,0 +1,30 @@
+#!/sbin/runscript
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+        
+depend() {
+        need net
+}       
+        
+start() {       
+        ebegin "Starting Busmaster"
+        start-stop-daemon --start --quiet \
+                --name "busmasterOscReceive" --background \
+                --pidfile "/var/run/busmaster/OscReceive.pid" \
+                --exec /usr/bin/php -- /usr/share/rabe-busmaster/src/modules/OscReceive/Daemon.php
+        start-stop-daemon --start --quiet \
+                --name "busmasterOscDispatch" --background \
+                --pidfile "/var/run/busmaster/OscDispatch.pid" \
+                --exec /usr/bin/php -- /usr/share/rabe-busmaster/src/modules/OscDispatch/Daemon.php
+        eend $? "Failed to start busmaster"
+}       
+        
+stop() {
+        ebegin "Stopping Busmaster"
+        start-stop-daemon --stop --quiet --name "busmasterOscReceive" \
+                --pidfile "/var/run/busmaster/OscReceive.pid"
+        start-stop-daemon --stop --quiet --name "busmasterOscDispatch" \
+                --pidfile "/var/run/busmaster/OscDispatch.pid"
+}
+
