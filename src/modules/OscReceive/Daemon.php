@@ -49,17 +49,17 @@ class OscReceive_Daemon
     /**
      * @var String
      */
-    var $socketRecvFromFunction = "socket_recvfrom";
+    var $socketRecvFromFunc = "socket_recvfrom";
 
     /**
      * @var String
      */
-    var $socketCreateFunction = "socket_create";
+    var $socketCreateFunc = "socket_create";
 
     /**
      * @var String
      */
-    var $socketBindFunction = "socket_bind";
+    var $socketBindFunc = "socket_bind";
 
     /** 
      * constructor
@@ -69,7 +69,7 @@ class OscReceive_Daemon
      * @param Object $oscParser         OSC parser
      * @param Object $socketOscDispatch OSC push to osc dispatch socket
      */
-    Function __construct(
+    function __construct(
         $dispatcher,
         $logger,
         $oscParser,
@@ -112,8 +112,8 @@ class OscReceive_Daemon
      */
     private function _runSocket()
     {
-        $func = $this->socketRecvFromFunction;
-        if ($func($this->socket, $buffer, 9999, 0, $name)) {
+        $func = $this->socketRecvFromFunc;
+        if (call_user_function($func, $this->socket, $buffer, 9999, 0, $name)) {
             $this->socketName = $name;
     
             // parse incoming buffer
@@ -162,8 +162,8 @@ class OscReceive_Daemon
             )
         );
     
-        $func = $this->socketCreateFunction;
-        $socket = $func(AF_INET, SOCK_DGRAM, SOL_UDP);
+        $func = $this->socketCreateFunc;
+        $socket = call_user_function($func, AF_INET, SOCK_DGRAM, SOL_UDP);
         if (!$socket) {
             $this->logger->error(
                 sprintf(
@@ -177,8 +177,8 @@ class OscReceive_Daemon
 
         $this->logger->log(sprintf('binding socket on %s:%s', $ipaddr, $port));
 
-        $func = $this->socketBindFunction;
-        $recv_socket = $func($socket, $ipaddr, $port);
+        $func = $this->socketBindFunc;
+        $recv_socket = call_user_function($func, $socket, $ipaddr, $port);
         if (!$recv_socket) {
             $this->logger->error(
                 sprintf(

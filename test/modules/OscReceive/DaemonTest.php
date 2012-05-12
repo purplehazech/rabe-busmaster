@@ -67,9 +67,9 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         );
 
         // test shunting for low level methods
-        $this->object->socketRecvFromFunction = __CLASS__.'::socketRecvfrom';
-        $this->object->socketCreateFunction = __CLASS__.'::socketCreate';
-        $this->object->socketBindFunction = __CLASS__.'::socketBind';
+        $this->object->socketRecvFromFunc = __CLASS__.'::socketRecvfrom';
+        $this->object->socketCreateFunc = __CLASS__.'::socketCreate';
+        $this->object->socketBindFunc = __CLASS__.'::socketBind';
 
         $this->dispatchMock = $dispatchMock;
         $this->loggerMock = $loggerMock;
@@ -80,7 +80,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * shunt for socket_recvfrom
      */
-    static public function socketRecvfrom($socket, &$buffer, $length, $flags, &$name)
+    static function socketRecvfrom($socket, &$buffer, $length, $flags, &$name)
     {
         unset($socket);
         unset($length);
@@ -95,7 +95,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * shunt for socket_create
      */
-    static public function socketCreate()
+    static function socketCreate()
     {
     }
 
