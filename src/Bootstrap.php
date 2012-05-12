@@ -20,6 +20,7 @@ $conf = parse_ini_file(__DIR__.'/../etc/busmaster.ini', true);
 set_include_path(
     __DIR__.'/:'.
     __DIR__.'/../lib/'.
+    __DIR__.'/../lib/poschp/src'.
     get_include_path()
 );
 
