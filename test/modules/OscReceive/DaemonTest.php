@@ -70,6 +70,9 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         $this->object->socketRecvFromFunc = __CLASS__.'::socketRecvfrom';
         $this->object->socketCreateFunc = __CLASS__.'::socketCreate';
         $this->object->socketBindFunc = __CLASS__.'::socketBind';
+        if (!defined('AF_INET')) {
+            define('AF_INET', 'AF_INET');
+        }
 
         $this->dispatchMock = $dispatchMock;
         $this->loggerMock = $loggerMock;
@@ -163,6 +166,8 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      */
     public function testRun()
     {
+        $this->object->socket = new stdClass;
+
         $this->object->run();
     }
 
@@ -197,6 +202,8 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('debug')
             ->with($this->equalTo('OscReceive_Daemon digested an OSC message'));
+
+        $this->object->socket = new stdClass;
 
         $this->assertTrue($this->object->run());
         $this->assertEquals($this->object->socketName, 'testSocket');
