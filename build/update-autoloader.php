@@ -27,6 +27,7 @@ define('AUTOLOADER_TEMPLATE', <<<EOD
  * @license    http://www.gnu.org/licenses/gpl-3.0.txt GPLv3
  * @link       http://osc.purplehaze.ch
  */
+// @codeCoverageIgnoreStart
 
 \$map = array();
 %LOADERMAP%
