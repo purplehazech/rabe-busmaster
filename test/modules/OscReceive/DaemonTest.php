@@ -85,7 +85,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * test constructor
      *
-     * @covers OscReceiveDaemon::_construct
+     * @covers OscReceive_Daemon::_construct
      *
      * @return void
      */
@@ -96,7 +96,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
             ->method('dispatch');
 
         $o = new OscReceive_Daemon(
-            $this->dispatcherMock,
+            $this->dispatchMock,
             $this->loggerMock,
             $this->oscMock,
             $this->workPollMock
@@ -109,14 +109,19 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      * @covers OscReceive_Daemon::start
      *
      * @return void
-     *
-     * @todo Implement testStart().
      */
     public function testStart()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->dispatchMock
+            ->expects($this->once())
+            ->method('dispatch')
+            ->with($this->equalTo('/daemon/start'/));
+
+        $o = new OscReceive_Daemon(
+            $this->dispatchMock,
+            $this->loggerMock,
+            $this->oscMock,
+            $this->workPollMock
         );
     }
 
