@@ -52,7 +52,8 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
             array('log', 'debug', 'error')
         );
         $oscMock = $this->getMock(
-            'stdClass'
+            'stdClass',
+            array('setDataString', 'parse', 'getResult')
         );
         $workPollMock = $this->getMock(
             'stdClass',
@@ -89,7 +90,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * shunt for socket_recvfrom
      */
-    static function socketRecvfrom($socket, &$buffer, $length, $flags, &$name)
+    static function socketRecvfrom($socket, $buffer, $length, $flags, $name)
     {
         unset($socket);
         unset($length);
