@@ -57,6 +57,7 @@ define('DIC_CLASSPART', <<<EOD
  * @link       http://purplehaze.ch
  *
  */
+// @codeCoverageIgnoreStart
 // @codingStandardsIgnoreStart
 /**
  * Sadly I found no really easy way to do this, all I really wanted
