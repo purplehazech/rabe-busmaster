@@ -11,3 +11,6 @@
 [submodule "lib/sfConfig"]
 	path = lib/sfConfig
 	url = git://github.com/symfony/Config.git
+[submodule "lib/poschp"]
+	path = lib/poschp
+	url = git://github.com/hairmare/PoscHP.git
