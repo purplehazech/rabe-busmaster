@@ -111,6 +111,7 @@ class BootstrapDic extends Container
     {
         $this->services['exampleagentdaemon'] = $instance = new \ExampleAgent($this->get('dispatcher'), $this->get('logger'));
 
+        $instance->start();
         $instance->run();
 
         return $instance;
@@ -172,6 +173,7 @@ class BootstrapDic extends Container
     {
         $this->services['oscdispatchdaemon'] = $instance = new \OscDispatch_Daemon($this->get('dispatcher'), $this->get('logger'), $this->get('oscdispatchpoll'), $this->get('oscdispatchpollsocketwork'));
 
+        $instance->start();
         $instance->run();
 
         return $instance;
@@ -225,7 +227,7 @@ class BootstrapDic extends Container
         $this->services['oscdispatchpollsocketwork'] = $instance = $this->get('oscDispatchPollZmq')->getSocket(7);
 
         $instance->setSockOpt(1, 1);
-        $instance->bind('tpc://0.0.0.0:5555');
+        $instance->bind('tcp://0.0.0.0:5555');
 
         return $instance;
     }
@@ -255,6 +257,7 @@ class BootstrapDic extends Container
     {
         $this->services['oscreceivedaemon'] = $instance = new \OscReceive_Daemon($this->get('dispatcher'), $this->get('logger'), $this->get('oscreceiveoscparser'), $this->get('oscreceivepushsocketoscdispatch'));
 
+        $instance->start();
         $instance->run();
 
         return $instance;
