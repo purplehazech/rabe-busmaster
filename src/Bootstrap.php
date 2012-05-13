@@ -67,6 +67,15 @@ require_once 'Bootstrap.dic.php';
 require_once 'Runtime.php';
 
 /**
+ * osc parser
+ *
+ * loaded here due to missing autoloader
+ *
+ * @todo add autoloader
+ */
+require_once 'Osc/Parse.php';
+
+/**
  * run everything
  */
 Runtime::staticRun(new BootstrapDic);

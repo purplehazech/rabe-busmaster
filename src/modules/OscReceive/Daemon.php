@@ -28,11 +28,6 @@ if (!defined('MODULE_NAME')) {
 require_once dirname(__FILE__).'/../Bootstrap.php';
 
 /**
- * osc parser
- */
-require_once 'Osc/Parse.php';
-
-/**
  * osc receiver
  *
  * @category   PoscHP
