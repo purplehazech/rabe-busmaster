@@ -52,7 +52,7 @@ class Runtime
     public function staticRun($dic)
     {
         if (!self::$instance) {
-            self::$instance = new __CLASS__($dic);
+            self::$instance = new Runtime($dic);
         }
         self::$instance->run();
     }
