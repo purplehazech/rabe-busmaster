@@ -74,7 +74,7 @@ class Runtime
         // check for runtime envs
         if (in_array($_SERVER['enviroment'], $this->runEnvs)) {
             // @codeCoverageIgnoreStart
-            while ($true) {
+            while (true) {
                 $daemon->run();
                 usleep(5000);
             }
