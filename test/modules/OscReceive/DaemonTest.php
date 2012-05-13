@@ -105,22 +105,27 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * @var Boolean
      */
-    var $socketCreateRet = true;
+    static $socketCreateRet = true;
 
     /**
      * shunt for socket_create
      */
     static function socketCreate()
     {
-        return $this->socketCreateRet;
+        return self::$socketCreateRet;
     }
+
+    /**
+     * @var Boolean
+     */
+    static $socketBindRet = true;
 
     /**
      * shunt for socket_bind
      */
     static public function socketBind()
     {
-        return true;
+        return seld::$socketBindRet;
     }
 
     /**
@@ -241,7 +246,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test socket_Create error
+     * test socket_create error
      *
      * @covers OscReceive_Daemon::_bindNewSocket
      *
@@ -254,9 +259,28 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
             ->method('dispatch')
             ->with($this->equalTo('/daemon/start'));
 
-        // test socket_create error
-        $this->setExpectedException('RuntimException');
-        $this->socketCreateRet = false;
+        $this->setExpectedException('RuntimeException');
+        self::$socketCreateRet = false;
+
+        $this->object->start();
+    }
+
+    /**
+     * test socket_bind error
+     *
+     * @covers OscReceive_Daemon::_bindNewSocket
+     *
+     * @return void
+     */
+    public function testSocketCreateError()
+    {
+        $this->dispatchMock
+            ->expects($this->once())
+            ->method('dispatch')
+            ->with($this->equalTo('/daemon/start'));
+
+        $this->setExpectedException('RuntimeException');
+        self::$socketBindRet = false;
 
         $this->object->start();
     }
