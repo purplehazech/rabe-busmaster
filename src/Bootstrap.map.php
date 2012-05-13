@@ -18,7 +18,7 @@
 
 $map = array();
 
-$map['Runtime'] = __DIR__.'./Runtime.php';
 $map['ExampleAgent_Daemon'] = __DIR__.'./modules/ExampleAgent/Daemon.php';
 $map['OscDispatch_Daemon'] = __DIR__.'./modules/OscDispatch/Daemon.php';
 $map['OscReceive_Daemon'] = __DIR__.'./modules/OscReceive/Daemon.php';
+$map['Runtime'] = __DIR__.'./Runtime.php';
