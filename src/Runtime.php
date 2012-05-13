@@ -53,7 +53,7 @@ class Runtime
      *
      * @return void
      **/
-    public function staticRun($dic)
+    static function staticRun($dic)
     {
         if (!self::$instance) {
             self::$instance = new Runtime($dic);
