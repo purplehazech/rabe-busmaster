@@ -69,7 +69,7 @@ class Runtime
     public function run()
     {
         // check for runtime envs
-        if (in_array($_ENV['enviroment'], $this->runEnvs)) {
+        if (in_array($_SERVER['enviroment'], $this->runEnvs)) {
             $this->dic->get(MODULE_NAME.'Daemon');
         }
     }

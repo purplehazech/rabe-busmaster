@@ -13,6 +13,6 @@
  * @link       http://purplehaze.ch
  */
 
-$_ENV['enviroment'] = 'test';
+$_SERVER['enviroment'] = 'test';
 
 require_once __DIR__.'/../src/Bootstrap.php';
