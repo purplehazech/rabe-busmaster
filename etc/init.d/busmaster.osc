@@ -8,7 +8,7 @@ depend() {
 }       
         
 start() {       
-        ebegin "Starting Busmaster"
+        ebegin "Starting Busmaster OSC nodes"
         start-stop-daemon --start --quiet \
                 --name "busmasterOscReceive" --background \
                 --pidfile "/var/run/busmaster/OscReceive.pid" \
@@ -17,11 +17,11 @@ start() {
                 --name "busmasterOscDispatch" --background \
                 --pidfile "/var/run/busmaster/OscDispatch.pid" \
                 --exec /usr/bin/php -- /usr/share/rabe-busmaster/src/modules/OscDispatch/Daemon.php
-        eend $? "Failed to start busmaster"
+        eend $? "Failed to start Busmaster OSC nodes"
 }       
         
 stop() {
-        ebegin "Stopping Busmaster"
+        ebegin "Stopping Busmaster OSC nodes"
         start-stop-daemon --stop --quiet --name "busmasterOscReceive" \
                 --pidfile "/var/run/busmaster/OscReceive.pid"
         start-stop-daemon --stop --quiet --name "busmasterOscDispatch" \
