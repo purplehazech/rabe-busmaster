@@ -123,7 +123,7 @@
         </exec>
         <tar destfile="build/rabe-busmaster-${version}.tar.bz2" 
              basedir="." compression="bzip2"
-             excludes="build/**"/>
+             excludes="build/**,**/services.xml"/>
     </target>
 
     <target name="bump-version">
