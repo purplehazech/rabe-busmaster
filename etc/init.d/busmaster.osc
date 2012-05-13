@@ -9,6 +9,7 @@ depend() {
         
 start() {       
         ebegin "Starting Busmaster OSC nodes"
+        export enviroment='integration'
         start-stop-daemon --start --quiet \
                 --name "busmasterOscReceive" --background \
                 --pidfile "/var/run/busmaster/OscReceive.pid" \
