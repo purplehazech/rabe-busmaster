@@ -4,6 +4,8 @@
     <import resource="../src/modules/log/services.xml"/>
     <import resource="../src/modules/OscDispatch/services.xml"/>
     <import resource="../src/modules/OscReceive/services.xml"/>
+    <import resource="../src/modules/daemon/services.xml"/>
+    <import resource="../src/modules/ExampleAgent/services.xml"/>
   </imports>
   <services>
     <!-- core services -->
