@@ -272,7 +272,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testSocketCreateError()
+    public function testSocketBindError()
     {
         $this->dispatchMock
             ->expects($this->once())
