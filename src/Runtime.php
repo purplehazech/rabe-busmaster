@@ -33,11 +33,15 @@ class Runtime
     static $instance = false;
 
     /**
+     * @var Array
+     */
+    var $runEnvs = array('production', 'integration', 'development');
+    /**
      * constructor
      *
      * @param Object $dic Dependency Injection Container
      */
-    public function __contruct($dic)
+    public function __construct($dic)
     {
         $this->dic = $dic;
     }
@@ -65,8 +69,7 @@ class Runtime
     public function run()
     {
         // check for runtime envs
-        if (in_array($_ENV['enviroment'], array('production', 'integration', 'development')))
-        {
+        if (in_array($_ENV['enviroment'], $this->runEnvs)) {
             $this->dic->get(MODULE_NAME.'Daemon');
         }
     }
