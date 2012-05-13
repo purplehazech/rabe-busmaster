@@ -66,6 +66,6 @@ $dic = new BootstrapDic;
 // @todo add signal handling events 
 // event handling belongs in the daemon module
 
-// logging is a module of its own right
+// logging should be loaded by autoload
 require_once 'Log.php';
 
