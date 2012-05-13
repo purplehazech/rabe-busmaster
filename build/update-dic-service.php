@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__.'/buildstrap.php';
+
 // get defined services
 $xml = simplexml_load_file($argv[2]);
 foreach ($xml->imports->import AS $import) {

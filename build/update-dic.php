@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__.'/buildstrap.php';
+
 require_once dirname(__FILE__).'/../src/Bootstrap.php';
 
 // remove existing file everything gets made from scratch

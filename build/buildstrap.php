@@ -1,5 +1,7 @@
 <?php
 
+$_SERVER['enviroment'] = 'build';
+
 /**
  * from http://stackoverflow.com/questions/928928/determining-what-classes-are-defined-in-a-php-class-file
  */
