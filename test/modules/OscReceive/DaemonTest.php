@@ -190,11 +190,6 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      */
     public function testRunSocket()
     {
-        $this->workPollMock
-            ->expects($this->once())
-            ->method('send')
-            ->with($this->equalTo(json_decode('{"address":"/test/1"}')));
-
         $this->oscMock
             ->expects($this->once())
             ->method('setDataString')
@@ -206,6 +201,11 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getResult')
             ->will($this->returnValue(json_decode('{"address":"/test/1"}')));
+
+        $this->workPollMock
+            ->expects($this->once())
+            ->method('send')
+            ->with($this->equalTo('{"address":"/test/1"}'));
 
         $this->loggerMock
             ->expects($this->once())
