@@ -67,12 +67,11 @@
             <arg value="--report-file=build/checkstyle.xml"/>
             <!-- dirs to scan -->
             <arg value="src/"/>
-            <arg value="bin/"/>
             <arg value="test/"/>
         </exec>
         <exec executable="phpmd">
             <!-- dirs to scan -->
-            <arg value="src,bin,test"/>
+            <arg value="src,test"/>
             <arg value="xml"/>
             <arg value="codesize,design,naming,unusedcode"/>
             <arg value="--reportfile"/>

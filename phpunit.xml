@@ -10,7 +10,6 @@
       <directory>lib/</directory>
     </blacklist>
     <whitelist>
-      <directory>bin/</directory>
       <directory>src/</directory>
     </whitelist>
   </filter>
