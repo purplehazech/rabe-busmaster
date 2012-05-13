@@ -221,18 +221,20 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
     /**
      * test startsocket method
      *
-     * @covers OscReceive_Daemon::_startSocket
+     * @covers OscReceive_Daemon::_bindNewSocket
      *
      * @return void
      *
-     * @todo Implement testStartSocket().
+     * @todo take the time to implement me properly (thats why this has so many logs)
      */
-    public function testStartSocket()
+    public function testBindNewSocket()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->dispatchMock
+            ->expects($this->once())
+            ->method('dispatch')
+            ->with($this->equalTo('/daemon/start'));
+
+        $this->object->start();
     }
 }
 
