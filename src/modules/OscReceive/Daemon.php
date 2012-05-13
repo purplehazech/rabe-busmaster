@@ -105,9 +105,9 @@ class OscReceive_Daemon
      */
     private function _runSocket()
     {
-        $buffer = $name = '';
+        $buffer = $name = $port = '';
         $func = $this->socketRecvFromFunc;
-        if ($func($this->socket, $buffer, 9999, 0, $name)) {
+        if ($func($this->socket, $buffer, 9999, 0, $name, $port)) {
             $this->socketName = $name;
     
             // parse incoming buffer

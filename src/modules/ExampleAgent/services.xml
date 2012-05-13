@@ -5,7 +5,6 @@
       <argument type="service" id="dispatcher"/>
       <argument type="service" id="logger"/>
       <call method="start"/>
-      <call method="run"/>
     </service>
   </services>
 </container>
