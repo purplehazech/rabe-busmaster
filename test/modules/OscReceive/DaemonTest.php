@@ -124,7 +124,7 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      */
     static public function socketBind()
     {
-        return seld::$socketBindRet;
+        return self::$socketBindRet;
     }
 
     /**
