@@ -172,7 +172,7 @@ class BootstrapDic extends Container
     {
         $this->services['oscdispatchdaemon'] = $instance = new \OscDispatch_Daemon($this->get('dispatcher'), $this->get('logger'), $this->get('oscdispatchpoll'), $this->get('oscdispatchpollsocketwork'));
 
-        $instance->run();
+        $instance->start();
 
         return $instance;
     }
@@ -255,7 +255,7 @@ class BootstrapDic extends Container
     {
         $this->services['oscreceivedaemon'] = $instance = new \OscReceive_Daemon($this->get('dispatcher'), $this->get('logger'), $this->get('oscreceiveoscparser'), $this->get('oscreceivepushsocketoscdispatch'));
 
-        $instance->run();
+        $instance->start();
 
         return $instance;
     }
