@@ -233,22 +233,14 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
      * @covers OscReceive_Daemon::_bindNewSocket
      *
      * @return void
+     *
+     * @todo loggerMock
      */
     public function testBindNewSocket()
     {
-        $this->dispatchMock
-            ->expects($this->once())
-            ->method('dispatch')
-            ->with($this->equalTo('/daemon/start'));
-
         $this->object->start();
 
         // socket_create errors
-        $this->dispatchMock
-            ->expects($this->once())
-            ->method('dispatch')
-            ->with($this->equalTo('/daemon/start'));
-
         $this->setExpectedException('RuntimeException');
         self::$socketCreateRet = false;
         self::$socketBindRet = true;
@@ -256,11 +248,6 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         $this->object->start();
 
         // socket_bind errors
-        $this->dispatchMock
-            ->expects($this->once())
-            ->method('dispatch')
-            ->with($this->equalTo('/daemon/start'));
-
         $this->setExpectedException('RuntimeException');
         self::$socketCreateRet = true;
         self::$socketBindRet = false;
