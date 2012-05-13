@@ -6,8 +6,6 @@
  *
  * PHP Version 5
  *
- * @todo rewrite to stream_socket stuff (socket_* & System_Daemon do ! play nicely)
- *
  * @category   PoscHP
  * @package    Server
  * @subpackage Socket
@@ -102,7 +100,7 @@ class OscReceive_Daemon
      */
     function run()
     {
-        $this->_runSocket();
+        return $this->_runSocket();
     }
 
     /**
