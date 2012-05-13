@@ -200,12 +200,12 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         $this->oscMock
             ->expects($this->once())
             ->method('getResult')
-            ->will($this->returnValue(json_decode('{"address":"/test/1"}')));
+            ->will($this->returnValue(json_decode('{"address":"\/test\/1"}')));
 
         $this->workPollMock
             ->expects($this->once())
             ->method('send')
-            ->with($this->equalTo('{"address":"/test/1"}'));
+            ->with($this->equalTo('{"address":"\/test\/1"}'));
 
         $this->loggerMock
             ->expects($this->once())
