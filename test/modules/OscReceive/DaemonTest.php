@@ -22,7 +22,7 @@ require_once 'modules/OscReceive/Daemon.php';
  *
  * @return Boolean
  */
-function OscReceiveSocketCreate()
+function oscReceiveSocketCreate()
 {
     return OscReceive_Daemon::$socketCreateRet;
 }
@@ -32,7 +32,7 @@ function OscReceiveSocketCreate()
  *
  * @return Boolean
  */
-function OscReceiveSocketRecvfrom()
+function oscReceiveSocketRecvfrom()
 {
     return true;
 }
@@ -42,7 +42,7 @@ function OscReceiveSocketRecvfrom()
  *
  * @return Boolean
  */
-function OscReceiveSocketBind()
+function oscReceiveSocketBind()
 {
     return OscReceive_Daemon::$socketBindRet;
 }
@@ -100,9 +100,9 @@ class OscReceive_DaemonTest extends PHPUnit_Framework_TestCase
         );
 
         // test shunting for low level methods
-        $this->object->socketRecvFromFunc = 'OscReceiveSocketRecvfrom';
-        $this->object->socketCreateFunc = 'OscReceiveSocketCreate';
-        $this->object->socketBindFunc = 'OscReceiveSocketBind';
+        $this->object->socketRecvFromFunc = 'oscReceiveSocketRecvfrom';
+        $this->object->socketCreateFunc = 'oscReceiveSocketCreate';
+        $this->object->socketBindFunc = 'oscReceiveSocketBind';
         if (!defined('AF_INET')) {
             define('AF_INET', 'AF_INET');
         }
