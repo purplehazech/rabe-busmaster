@@ -24,7 +24,7 @@ require_once 'modules/OscReceive/Daemon.php';
  */
 function oscReceiveSocketCreate()
 {
-    return OscReceive_Daemon::$socketCreateRet;
+    return OscReceive_DaemonTest::$socketCreateRet;
 }
 
 /**
@@ -44,7 +44,7 @@ function oscReceiveSocketRecvfrom()
  */
 function oscReceiveSocketBind()
 {
-    return OscReceive_Daemon::$socketBindRet;
+    return OscReceive_DaemonTest::$socketBindRet;
 }
 
 
