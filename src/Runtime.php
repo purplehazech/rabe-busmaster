@@ -68,7 +68,9 @@ class Runtime
      */
     public function run()
     {
-        $daemon = $this->dic->get(MODULE_NAME.'Daemon');
+        if (defined('MODULE_NAME')) {
+            $daemon = $this->dic->get(MODULE_NAME.'Daemon');
+        }
         // check for runtime envs
         if (in_array($_SERVER['enviroment'], $this->runEnvs)) {
             // @codeCoverageIgnoreStart
