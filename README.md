@@ -4,13 +4,13 @@ RaBe Busmaster
 PHP based middleware for rabe. As of now this has the following features.
 
 - cloud based development on our private jenkins instance
-- lots of automated build feature so you don't need to install the toolchain on a dev machine
+- lots of automated build tools so you don't need to install the complete toolchain on every dev machine
 - start-stop-daemon based php daemon infrastructure
 - fully automated deployment based on puppet-infra-project and rabe-portage-overlay
 - a sweet dependency injection container and basic libs (ie. the observer pattern)
-- zeromq libraries for message based coding
+- zeromq libraries for socket based coding
 
-In total this is configured as an enviroment for creating simple daemons. I have used this to implement open sound control (OSC) receiving capabilities. This currently logs all mreceived messages.
+As of now this is configured as an enviroment for creating simple daemons. This has been used to implement open sound control (OSC) receiving capabilities. This currently logs all received messages.
 
 Next up are the following tasks.
 
