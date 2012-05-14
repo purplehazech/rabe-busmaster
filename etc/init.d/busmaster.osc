@@ -12,10 +12,10 @@ start() {
         export enviroment='integration'
         start-stop-daemon --start --quiet \
                 --name "busmasterOscReceive" --background \
-                --pidfile "/var/run/busmaster/OscReceive.pid" \
+                --pidfile "/var/run/busmaster/OscReceive.pid" --make-pidfile \
                 --exec /usr/bin/php -- /usr/share/rabe-busmaster/src/modules/OscReceive/Daemon.php
         start-stop-daemon --start --quiet \
-                --name "busmasterOscDispatch" --background \
+                --name "busmasterOscDispatch" --background --make-pidfile \
                 --pidfile "/var/run/busmaster/OscDispatch.pid" \
                 --exec /usr/bin/php -- /usr/share/rabe-busmaster/src/modules/OscDispatch/Daemon.php
         eend $? "Failed to start Busmaster OSC nodes"
