@@ -14,3 +14,6 @@
 [submodule "lib/poschp"]
 	path = lib/poschp
 	url = git://github.com/hairmare/PoscHP.git
+[submodule "lib/doctrine2"]
+	path = lib/doctrine2
+	url = git://github.com/doctrine/doctrine2.git
