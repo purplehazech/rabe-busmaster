@@ -17,3 +17,6 @@
 [submodule "lib/doctrine2"]
 	path = lib/doctrine2
 	url = git://github.com/doctrine/doctrine2.git
+[submodule "lib/doctrine-common"]
+	path = lib/doctrine-common
+	url = git://github.com/doctrine/common.git
